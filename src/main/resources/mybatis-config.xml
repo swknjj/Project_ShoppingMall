@@ -3,6 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="com.icia.board.dto.BoardDTO" alias="board"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.AddressDTO" alias="address"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.InquiryDTO" alias="inquiry"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.OrderDTO" alias="order"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.Product_categoryDTO" alias="category"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.Product_imageDTO" alias="image"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.Product_option1DTO" alias="option1"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.Product_option2DTO" alias="option2"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.ProductDTO" alias="product"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.ReviewDTO" alias="review"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.SellerDTO" alias="seller"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.UserDTO" alias="user"></typeAlias>
     </typeAliases>
 </configuration>
