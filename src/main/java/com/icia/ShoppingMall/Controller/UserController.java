@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
     @Autowired
@@ -32,8 +34,10 @@ public class UserController {
         }
     }
     @PostMapping("/user/save")
-    public String userSave(@ModelAttribute UserDTO userDTO){
-        System.out.println("userDTO = " + userDTO);
-        return "index";
+    public String userSave(@ModelAttribute UserDTO userDTO, HttpSession session){
+        System.out.println("userDTO = " + userDTO + ", session = " + session);
+        userService.userSave(userDTO);
+            return "/UserPages/UserSave";
+        }
     }
-}
+

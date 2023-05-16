@@ -13,4 +13,8 @@ public class UserRepository {
     public UserDTO findByNickName(String nickname) {
         return sql.selectOne("User.findByNickname",nickname);
     }
+
+    public void userSave(UserDTO userDTO) {
+        sql.insert("User.userSave",userDTO);
+    }
 }

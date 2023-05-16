@@ -43,11 +43,10 @@
                     </div>
                     @
                     <div class="col">
-                        <input type="text" id="domain" class="form-control" id="email-form" onblur="email_check()"
-                               name="domain">
+                        <input type="text" id="domain" class="form-control" id="email-form" onblur="email_check()">
                     </div>
                     <div class="col">
-                        <select id="search-select" class="form-select" name="searchType" onblur="email_check()"
+                        <select id="search-select" class="form-select" name="domain" onblur="email_check()"
                                 onchange="input_email()">
                             <option value="" selected disabled hidden>선택해주세요</option>
                             <option value="daum.net">daum.net</option>
@@ -128,9 +127,10 @@
     }
     const email_check = () => {
         const email_label = document.getElementById("email-label");
-        const email_form = document.getElementById("email");
+        const email = document.getElementById("email");
+        const domain = document.getElementById("domain");
         const email_domain = document.getElementById("search-select");
-        if (email_form.value.length == 0) {
+        if (domain.value.length == 0 || email.value.length==0) {
             document.getElementById("email-bottom").innerText = "필수입력입니다.";
             document.getElementById("email-bottom").style.color = "red";
             email_label.style.color = "red";
@@ -202,14 +202,14 @@
         const birth_bottom = document.getElementById("birth-bottom");
         const exp = /^(?=.*\d)[\d]{13}$/;
         if (birth.value.length == 0) {
-            document.getElementById("birth-bottom").style.color = "red";
-            document.getElementById("birth-bottom").innerText = "필수입력입니다.";
+            birth_bottom.style.color = "red";
+            birth_bottom.innerText = "필수입력입니다.";
         } else if (!(birth.value.match(exp))) {
-            document.getElementById("birth-bottom").style.color = "red";
-            document.getElementById("birth-bottom").innerText = "조건을 확인해주세요";
+            birth_bottom.style.color = "red";
+            birth_bottom.innerText = "조건을 확인해주세요";
         } else {
-            document.getElementById("birth-bottom").style.color = "green";
-            document.getElementById("birth-bottom").innerText = "생년월일 확인";
+            birth_bottom.style.color = "green";
+            birth_bottom.innerText = "생년월일 확인";
         }
     }
 
@@ -228,32 +228,33 @@
         const password_check_bottom = document.getElementById("password-check-bottom");
         const nickname_bottom = document.getElementById("nickname-bottom");
         const birth_bottom = document.getElementById("birth-bottom");
-        const TOS = document.getElementById("TOS").checked;
-        const PICU = document.getElementById("PICU").checked;
-        const promotion = document.getElementById("promotion").checked;
-        if (email_bottom.style.color != "green") {
+        const TOS = document.getElementById("TOS");
+        const PICU = document.getElementById("PICU");
+        const promotion = document.getElementById("promotion");
+
+        if (email_bottom.style.color !== "green") {
             alert("이메일을 확인하세요");
             return false;
-        } else if (password_bottom.style.color != "green") {
+        } else if (password_bottom.style.color !== "green") {
             alert("비밀번호를 확인하세요");
             return false;
-        } else if (password_check_bottom.style.color != "green") {
+        } else if (password_check_bottom.style.color !== "green") {
             alert("비밀번호 확인칸을 확인해주세요");
             return false;
-        } else if (nickname_bottom.style.color != "green") {
+        } else if (nickname_bottom.style.color !== "green") {
             alert("닉네임 중복여부를 확인해주세요");
             return false;
-        } else if (birth_bottom.style.color != "green") {
+        } else if (birth_bottom.style.color !== "green") {
             alert("생년월일을 확인해주세요");
             return false;
-        } else if (!TOS) {
-            TOS.focus();
+        } else if (!TOS.checked) {
+            alert("TOS에 동의해주세요");
             return false;
-        } else if (!PICU) {
-            PICU.focus();
+        } else if (!PICU.checked) {
+            alert("PICU에 동의해주세요");
             return false;
-        } else if (!promotion) {
-            promotion.focus();
+        } else if (!promotion.checked) {
+            alert("Promotion에 동의해주세요");
             return false;
         } else {
             alert("회원가입을 환영합니다");

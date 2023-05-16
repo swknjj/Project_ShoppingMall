@@ -14,4 +14,11 @@ public class UserService {
         UserDTO userDTO = userRepository.findByNickName(nickname);
         return userDTO;
     }
+
+    public void userSave(UserDTO userDTO) {
+        if(userDTO.getEmail()!=null && userDTO.getDomain()!=null){
+            userDTO.setEmail(userDTO.getEmail()+"@"+userDTO.getDomain());
+        }
+        userRepository.userSave(userDTO);
+    }
 }
