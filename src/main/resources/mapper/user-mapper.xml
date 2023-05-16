@@ -8,7 +8,7 @@
         select * from user_table where nickname = #{nickname}
     </select>
 
-    <insert id="userSave" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+    <insert id="userSave" parameterType="user" useGeneratedKeys="true" keyProperty="user_id">
         insert into user_table (email,password,birth,nickname,agree_TOS,agree_PICU,agree_promotion)
             values (#{email},#{password},#{birth},#{nickname},#{agree_TOS},#{agree_PICU},#{agree_promotion})
     </insert>
