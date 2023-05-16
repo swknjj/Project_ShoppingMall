@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,5 +30,10 @@ public class UserController {
         }else {
             return new ResponseEntity<>(userDTO, HttpStatus.CONFLICT);
         }
+    }
+    @PostMapping("/user/save")
+    public String userSave(@ModelAttribute UserDTO userDTO){
+        System.out.println("userDTO = " + userDTO);
+        return "index";
     }
 }

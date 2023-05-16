@@ -13,9 +13,11 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+
         label {
             display: block;
         }
+
         .container2 {
             background-color: lightgray;
         }
@@ -23,14 +25,14 @@
 </head>
 
 <body>
-<%@include file="/WEB-INF/views/component/nav.jsp"%>
+<%@include file="/WEB-INF/views/component/nav.jsp" %>
 <div id="container1" style="margin-top: 20px; margin-left: 20px">
     <a href="/" style="text-decoration-line: none">Our lovely home</a>
 </div>
 <div class="container2" style="margin: 0 auto; width: 40%">
     <div id="signUp" style="width: 80%; margin: 0 auto; height: auto; text-align: center;">
         <h2 style="margin-top: 100px">회원가입</h2><br>
-        <form action="/" method="post" id="name-usersave" onsubmit="return finalCheck()">
+        <form action="/user/save" method="post" id="name-usersave" onsubmit="return finalCheck()">
             <div class="container">
                 <label for="email" id="email-label"><h5>이메일</h5></label>
                 <div class="row">
@@ -87,7 +89,7 @@
                 <h4 id="birth-bottom"></h4>
             </div>
             <div class="container">
-            <h4>약관동의</h4>
+                <h4>약관동의</h4>
                 <label for="agree-all">
                     <input type="checkbox" id="agree-all" name="agreeAll"><span> 모두 동의합니다</span>
                 </label><br>
@@ -98,7 +100,8 @@
                     <input type="checkbox" id="PICU" name="agree_PICU"><span> PICU 동의 <strong>(필수)</strong></span>
                 </label><br>
                 <label for="promotion">
-                    <input type="checkbox" id="promotion" name="agree_promotion"><span> promotion 동의 <strong>(필수)</strong></span>
+                    <input type="checkbox" id="promotion"
+                           name="agree_promotion"><span> promotion 동의 <strong>(필수)</strong></span>
                 </label><br>
             </div>
             <div class="container">
@@ -118,7 +121,7 @@
 </body>
 <script>
     const back = () => {
-        location.href="/";
+        location.href = "/";
     }
     const input_email = () => {
         document.getElementById("domain").value = document.getElementById("search-select").value;
@@ -211,13 +214,13 @@
     }
 
     const agreeChkAll = document.getElementById("agree-all");
-    agreeChkAll.addEventListener('change', (e)=> {
-            const TOS = document.getElementById("TOS");
-            const PICU = document.getElementById("PICU");
-            const promotion = document.getElementById("promotion");
-            TOS.checked = e.target.checked;
-            PICU.checked = e.target.checked;
-            promotion.checked = e.target.checked;
+    agreeChkAll.addEventListener('change', (e) => {
+        const TOS = document.getElementById("TOS");
+        const PICU = document.getElementById("PICU");
+        const promotion = document.getElementById("promotion");
+        TOS.checked = e.target.checked;
+        PICU.checked = e.target.checked;
+        promotion.checked = e.target.checked;
     });
     const finalCheck = () => {
         const email_bottom = document.getElementById("email-bottom");
@@ -228,31 +231,31 @@
         const TOS = document.getElementById("TOS").checked;
         const PICU = document.getElementById("PICU").checked;
         const promotion = document.getElementById("promotion").checked;
-        if(email_bottom.style.color!="green"){
+        if (email_bottom.style.color != "green") {
             alert("이메일을 확인하세요");
             return false;
-        }else if(password_bottom.style.color!="green"){
+        } else if (password_bottom.style.color != "green") {
             alert("비밀번호를 확인하세요");
             return false;
-        }else if(password_check_bottom.style.color!="green"){
+        } else if (password_check_bottom.style.color != "green") {
             alert("비밀번호 확인칸을 확인해주세요");
             return false;
-        }else if(nickname_bottom.style.color!="green"){
+        } else if (nickname_bottom.style.color != "green") {
             alert("닉네임 중복여부를 확인해주세요");
             return false;
-        }else if(birth_bottom.style.color!="green"){
+        } else if (birth_bottom.style.color != "green") {
             alert("생년월일을 확인해주세요");
             return false;
-        }else if(TOS==false){
+        } else if (!TOS) {
             TOS.focus();
             return false;
-        }else if(PICU==false){
+        } else if (!PICU) {
             PICU.focus();
             return false;
-        }else if(promotion==false){
+        } else if (!promotion) {
             promotion.focus();
             return false;
-        }else {
+        } else {
             alert("회원가입을 환영합니다");
             return true;
         }
