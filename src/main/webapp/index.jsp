@@ -5,13 +5,13 @@
     <script src="/resources/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
-
+    <title>Our lovely home</title>
 </head>
 <body>
 <%@include file="/WEB-INF/views/component/nav.jsp"%>
 <div id="section">
 
 </div>
-<%@include file="WEB-INF/views/component/footer.jsp"%>
+<%@include file="/WEB-INF/views/component/footer.jsp"%>
 </body>
 </html>
