@@ -4,5 +4,7 @@
 
 
 <mapper namespace="User">
-
+    <select id="findByNickname" parameterType="String" resultType="user">
+        select * from user_table where nickname = #{nickname}
+    </select>
 </mapper>
