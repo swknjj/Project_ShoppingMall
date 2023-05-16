@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+nav {
+    height: 10%;
+}
+#section {
+    height: 70%;
+    overflow-y: scroll;
+}
+#footer {
+    height: 10%;
+}
