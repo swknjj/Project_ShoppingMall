@@ -10,6 +10,8 @@
     <style>
         #section {
             height: 80vh;
+            display: flex;
+            flex-direction: column;
         }
 
         #section .container {
@@ -17,12 +19,19 @@
             justify-content: center;
             align-items: center;
             height: 100%;
+
         }
 
         #signIn {
             width: 80%;
             margin: 0 auto;
             text-align: center;
+        }
+        #footer {
+            width: 100%;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>

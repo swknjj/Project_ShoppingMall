@@ -29,4 +29,12 @@ public class UserRepository {
         return sql.selectOne("User.userLogin",userDTO);
 
     }
+
+    public UserDTO findByPassword(String emailFull) {
+        return sql.selectOne("User.findByPassword",emailFull);
+    }
+
+    public void userPasswordChange(UserDTO userDTO) {
+        sql.update("User.userPasswordChange",userDTO);
+    }
 }

@@ -1,0 +1,62 @@
+<html>
+<head>
+    <script src="/resources/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/link.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Our lovely home</title>
+    <style>
+        .container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+        }
+
+        .container2 {
+            background-color: lightgray;
+        }
+
+        .input-with-button {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-button input[type="text"] {
+            margin-right: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+<%@include file="/WEB-INF/views/component/nav.jsp" %>
+<div id="container1" style="margin-top: 20px; margin-left: 20px">
+    <a href="/" style="text-decoration-line: none">Our lovely home</a>
+</div>
+<div class="container2" style="margin: 0 auto; width: 40%">
+    <div id="find-password" style="width: 80%; margin: 0 auto; height: auto; text-align: center;">
+
+        <div class="container">
+            <h5 style="margin-top: 100px">가입한 이메일 주소를 입력해주세요.</h5><br>
+            <div class="input-with-button" id="email-full" placeholder="이메일">
+                <input type="text" class="form-control">
+                <button class="btn btn-primary" style="width: 150px">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    const back = () => {
+        location.href = "/";
+    }
+
+</script>
+</html>

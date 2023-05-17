@@ -55,11 +55,22 @@ public class UserController {
         }
     }
 
+    // 닉네임으로 이메일 찾기(ajax)
+    @PostMapping("/user/findById")
+    public ResponseEntity userFindById(@RequestParam("nickname")String nickname) {
+        UserDTO userDTO = userService.findByNickname(nickname);
+        if(userDTO==null) {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity<>(userDTO.getEmail_full(),HttpStatus.OK);
+        }
+    }
+
     // 유저 등록
     @PostMapping("/user/save")
     public String userSave(@ModelAttribute UserDTO userDTO) {
         userService.userSave(userDTO);
-        return "/index";
+        return "redirect:/";
     }
 
     // 유저 로그인 처리
@@ -70,8 +81,38 @@ public class UserController {
             return "/Response/LoginFail";
         } else {
             session.setAttribute("nickname",dto.getNickname());
-            return "/index";
+            return "redirect:/";
         }
+    }
+    // 유저 아이디 찾기 화면으로
+    @GetMapping("/user/findById")
+    public String userFindByIdForm() {
+        return "/UserPages/UserFindById";
+    }
+
+    // 유저 비밀번호 찾기 화면으로
+    @GetMapping("/user/findByPassword")
+    public String userPasswordForm() {
+        return "/UserPages/UserPassword";
+    }
+
+    // 유저 비밀번호 찾아서 재설정 처리 (ajax)
+    @PostMapping("/user/findByPassword")
+    public ResponseEntity userPassword(@RequestParam("email_full")String email_full) {
+        UserDTO userDTO = userService.findByPassword(email_full);
+        if(userDTO!=null) {
+            return new ResponseEntity<>(userDTO,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null,HttpStatus.CONFLICT);
+        }
+    }
+
+    // 유저 비밀번호 받아서 최종 수정처리
+    @PostMapping("/user/userPasswordChange")
+    public String userPasswordChange(@ModelAttribute UserDTO userDTO) {
+        userService.userPasswordChange(userDTO);
+        return "redirect:/";
+
     }
 }
 

@@ -34,4 +34,13 @@ public class UserService {
     public UserDTO userLogin(UserDTO userDTO) {
         return userRepository.userLogin(userDTO);
     }
+
+    public UserDTO findByPassword(String emailFull) {
+        UserDTO userDTO = userRepository.findByPassword(emailFull);
+        return userDTO;
+    }
+
+    public void userPasswordChange(UserDTO userDTO) {
+        userRepository.userPasswordChange(userDTO);
+    }
 }
