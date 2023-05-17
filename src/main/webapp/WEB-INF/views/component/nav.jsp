@@ -19,7 +19,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="/user/save">회원가입</a></li>
-            <li><a class="dropdown-item" href="#">로그인</a></li>
+            <li><a class="dropdown-item" href="/user/login">로그인</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">아이디 찾기</a></li>
             <li><a class="dropdown-item" href="#">비밀번호 재설정</a></li>

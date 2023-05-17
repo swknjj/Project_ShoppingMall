@@ -5,6 +5,8 @@ import com.icia.ShoppingMall.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -17,8 +19,19 @@ public class UserService {
 
     public void userSave(UserDTO userDTO) {
         if(userDTO.getEmail()!=null && userDTO.getDomain()!=null){
-            userDTO.setEmail(userDTO.getEmail()+"@"+userDTO.getDomain());
+            userDTO.setEmail_full(userDTO.getEmail()+"@"+userDTO.getDomain());
         }
+        System.out.println("userDTO = " + userDTO);
         userRepository.userSave(userDTO);
+    }
+
+
+    public UserDTO findByEmail(String email) {
+        UserDTO userDTO = userRepository.findByEmail(email);
+        return userDTO;
+    }
+
+    public UserDTO userLogin(UserDTO userDTO) {
+        return userRepository.userLogin(userDTO);
     }
 }

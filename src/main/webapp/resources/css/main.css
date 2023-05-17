@@ -7,7 +7,10 @@ nav {
 }
 #section {
     height: 70%;
-    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
 }
 #footer {
     height: 10%;

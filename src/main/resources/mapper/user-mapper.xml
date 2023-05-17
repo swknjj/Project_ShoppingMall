@@ -9,7 +9,15 @@
     </select>
 
     <insert id="userSave" parameterType="user" useGeneratedKeys="true" keyProperty="user_id">
-        insert into user_table (email,password,birth,nickname,agree_TOS,agree_PICU,agree_promotion)
-            values (#{email},#{password},#{birth},#{nickname},#{agree_TOS},#{agree_PICU},#{agree_promotion})
+        insert into user_table (email,password,birth,nickname,agree_TOS,agree_PICU,agree_promotion,email_full)
+            values (#{email},#{password},#{birth},#{nickname},#{agree_TOS},#{agree_PICU},#{agree_promotion},#{email_full})
     </insert>
+
+    <select id="findByEmail" parameterType="String" resultType="user">
+        select * from user_table where email=#{email}
+    </select>
+
+    <select id="userLogin" parameterType="user" resultType="user">
+        select * from user_table where email_full = #{email_full} and password = #{password}
+    </select>
 </mapper>

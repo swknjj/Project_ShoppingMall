@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class UserDTO {
     Long user_id; // 회원아이디
     String email; // 이메일
+    String email_full; // 이메일+@도메인
     String domain;
     String password; // 비밀번호
     String birth; // 생일
