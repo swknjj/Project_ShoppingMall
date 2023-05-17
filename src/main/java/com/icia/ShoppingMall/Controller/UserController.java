@@ -112,7 +112,13 @@ public class UserController {
     public String userPasswordChange(@ModelAttribute UserDTO userDTO) {
         userService.userPasswordChange(userDTO);
         return "redirect:/";
+    }
 
+    // 로그아웃처리
+    @GetMapping("/user/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }
 

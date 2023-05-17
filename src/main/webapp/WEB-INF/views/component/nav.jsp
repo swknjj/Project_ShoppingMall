@@ -59,7 +59,7 @@
             </ul>
             <c:if test="${sessionScope.nickname!=null}">
                 <ul class="navbar-nav ml-auto">
-                        ${sessionScope.nickname}님 환영해요!　
+                        ${sessionScope.nickname}님 환영해요! <a href="/user/logout">로그아웃하기</a>　
                 </ul>
             </c:if>
             <form class="d-flex">
