@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="/resources/css/link.css">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Our lovely home</a>
@@ -42,7 +43,7 @@
                 </c:when>
                 <c:otherwise>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">본인 정보 수정</a></li>
+                        <li><a class="dropdown-item" href="/user/detail">My Page</a></li>
                         <li><a class="dropdown-item" href="#">본인 배송지 설정</a></li>
                         <li>
                             <hr class="dropdown-divider">

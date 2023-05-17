@@ -37,4 +37,8 @@ public class UserRepository {
     public void userPasswordChange(UserDTO userDTO) {
         sql.update("User.userPasswordChange",userDTO);
     }
+
+    public void userUpdate(UserDTO userDTO) {
+        sql.update("User.userUpdate",userDTO);
+    }
 }

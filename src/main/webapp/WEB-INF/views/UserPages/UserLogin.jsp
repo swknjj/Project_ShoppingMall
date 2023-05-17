@@ -47,7 +47,7 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호"><br>
                 <div class="row">
                     <div class="col">
-                        <a href="/">비밀번호 재설정</a>
+                        <a href="/user/findByPassword">비밀번호 재설정</a>
                     </div>
                     <div class="col">
                         <a href="/user/save">회원가입</a>

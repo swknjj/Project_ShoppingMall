@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpSession;
-import java.util.List;
+
 
 @Controller
 public class UserController {
@@ -120,5 +120,30 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+    // 유저 상세정보 화면
+    @GetMapping("/user/detail")
+    public String userDetail(HttpSession session, Model model) {
+        String nickname = (String)session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        model.addAttribute("userDTO",userDTO);
+        return "/UserPages/UserDetail/UserDetail";
+    }
+    // 유저 설정(업데이트)
+    @GetMapping("/user/update")
+    public String userUpdateForm(HttpSession session,Model model) {
+        String nickname = (String)session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        model.addAttribute("userDTO",userDTO);
+        return "/UserPages/UserDetail/UserUpdate";
+    }
+    // 유저 업데이트 데이터 처리
+    @PostMapping("/user/update")
+    public String userUpdate(@ModelAttribute UserDTO userDTO) {
+        userService.userUpdate(userDTO);
+        System.out.println("userDTO = " + userDTO);
+        return "redirect:/";
+    }
+
+    
 }
 

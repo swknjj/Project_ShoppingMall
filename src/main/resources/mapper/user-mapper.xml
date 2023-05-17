@@ -40,4 +40,11 @@
         set password = #{password}
         where user_id = #{user_id}
     </update>
+
+    <update id="userUpdate" parameterType="user">
+        update user_table
+        set nickname = #{nickname},
+            birth    = #{birth}
+        where user_id = #{user_id}
+    </update>
 </mapper>

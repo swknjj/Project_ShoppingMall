@@ -43,4 +43,8 @@ public class UserService {
     public void userPasswordChange(UserDTO userDTO) {
         userRepository.userPasswordChange(userDTO);
     }
+
+    public void userUpdate(UserDTO userDTO) {
+        userRepository.userUpdate(userDTO);
+    }
 }
