@@ -47,4 +47,8 @@ public class UserService {
     public void userUpdate(UserDTO userDTO) {
         userRepository.userUpdate(userDTO);
     }
+
+    public void userDelete(Long id) {
+        userRepository.userDelete(id);
+    }
 }

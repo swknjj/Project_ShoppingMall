@@ -34,7 +34,15 @@
 <div id="section">
     <div class="container">
         <div id="user-update" style="width: 80%;">
-            <h2>회원정보 수정</h2>
+            <div class="row">
+                <div class="col-10">
+                    <h2>회원정보 수정</h2>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-danger" onclick="outing()">회원탈퇴</button>
+                </div>
+            </div>
+
             <form action="/user/update" method="post" onsubmit="return check()">
                 <input type="text" name="user_id" value="${userDTO.user_id}" style="display: none"><br>
                 <label for="user-nickname"><h4>별명 *필수항목</h4></label><br>
@@ -46,6 +54,7 @@
                        placeholder="- 제외">
                 <h4 id="birth-bottom"></h4>
                 <input type="submit" class="btn btn-primary" value="수정하기">
+
                 <button class="btn btn-secondary" onclick="back()">뒤로가기</button>
             </form>
         </div>
@@ -108,6 +117,12 @@
         }else {
             alert("회원정보 수정 완료")
             return true;
+        }
+    }
+    const outing = () => {
+        if (confirm("탈퇴하시겠습니까?")) {
+            alert("삭제완료")
+            location.href = "/user/delete?user_id=${userDTO.user_id}"
         }
     }
 </script>

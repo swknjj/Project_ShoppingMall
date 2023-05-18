@@ -41,4 +41,8 @@ public class UserRepository {
     public void userUpdate(UserDTO userDTO) {
         sql.update("User.userUpdate",userDTO);
     }
+
+    public void userDelete(Long id) {
+        sql.delete("User.userDelete",id);
+    }
 }

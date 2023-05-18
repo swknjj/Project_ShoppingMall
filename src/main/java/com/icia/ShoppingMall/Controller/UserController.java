@@ -144,6 +144,14 @@ public class UserController {
         return "redirect:/";
     }
 
+    //  유저 회원탈퇴 처리
+    @GetMapping("/user/delete")
+    public String userDelete(@RequestParam("user_id") Long id,HttpSession session) {
+        userService.userDelete(id);
+        session.invalidate();
+        return "redirect:/";
+    }
+
     
 }
 
