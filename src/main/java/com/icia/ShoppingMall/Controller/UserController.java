@@ -46,8 +46,10 @@ public class UserController {
 
     // 유저 이메일 중복체크(ajax)
     @PostMapping("/email-check")
-    public ResponseEntity email_check(@RequestParam("email_check") String email) {
-        UserDTO userDTO = userService.findByEmail(email);
+    public ResponseEntity email_check(@RequestParam("email_check") String email,
+                                      @RequestParam("email_domain") String domain) {
+        String email_full = email+"@"+domain;
+        UserDTO userDTO = userService.findByEmail(email_full);
         if (userDTO == null) {
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         } else {

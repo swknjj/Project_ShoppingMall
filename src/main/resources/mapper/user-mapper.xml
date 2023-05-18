@@ -19,7 +19,7 @@
     <select id="findByEmail" parameterType="String" resultType="user">
         select *
         from user_table
-        where email = #{email}
+        where email_full = #{email}
     </select>
 
     <select id="userLogin" parameterType="user" resultType="user">

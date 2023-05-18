@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -138,7 +138,8 @@
             type: "post",
             url: "/email-check",
             data: {
-                "email_check": typingEmail
+                "email_check": typingEmail,
+                "email_domain": domain.value
             },
             success: function () {
                 if (domain.value.length == 0 || email.value.length==0) {
