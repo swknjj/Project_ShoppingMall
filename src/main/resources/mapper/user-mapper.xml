@@ -47,4 +47,10 @@
             birth    = #{birth}
         where user_id = #{user_id}
     </update>
+
+    <delete id="userDelete" parameterType="Long">
+        delete
+        from user_table
+        where user_id = #{id}
+    </delete>
 </mapper>
