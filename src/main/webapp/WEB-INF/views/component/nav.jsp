@@ -44,11 +44,11 @@
                 <c:otherwise>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/user/detail">My Page</a></li>
-                        <li><a class="dropdown-item" href="#">본인 배송지 설정</a></li>
+                        <li><a class="dropdown-item" href="/user/userAddress">본인 배송지 설정</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">판매자 설정</a></li>
+                        <li><a class="dropdown-item" href="/seller/index">판매자 설정</a></li>
                         <li><a class="dropdown-item" href="#">상품 등록</a></li>
                     </ul>
                     </li>
