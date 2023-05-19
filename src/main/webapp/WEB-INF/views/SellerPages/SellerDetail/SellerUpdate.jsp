@@ -66,9 +66,8 @@
         <h4 id="seller-email-bottom"></h4>
 
         <input type="submit" class="btn btn-primary" value="수정하기">
-
-        <button class="btn btn-secondary" onclick="back()">뒤로가기</button>
       </form>
+      <button class="btn btn-secondary" onclick="back()">뒤로가기</button>
     </div>
   </div>
 </div>

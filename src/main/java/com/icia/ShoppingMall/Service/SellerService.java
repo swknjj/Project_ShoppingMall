@@ -27,4 +27,8 @@ public class SellerService {
     public void sellerDelete(Long seller_id) {
         sellerRepository.sellerDelete(seller_id);
     }
+
+    public void sellerUpdate(SellerDTO sellerDTO) {
+        sellerRepository.sellerUpdate(sellerDTO);
+    }
 }

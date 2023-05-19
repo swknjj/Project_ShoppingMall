@@ -20,4 +20,11 @@
     <delete id="sellerDelete" parameterType="Long">
         delete from seller_table where seller_id = #{seller_id}
     </delete>
+
+    <update id="sellerUpdate" parameterType="seller">
+        update seller_table set company_name = #{company_name} , representative = #{representative} ,
+                                address = #{address} , customer_center = #{customer_center} ,
+                                email = #{email} where seller_id = #{seller_id}
+
+    </update>
 </mapper>

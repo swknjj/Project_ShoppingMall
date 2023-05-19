@@ -3,6 +3,7 @@ package com.icia.ShoppingMall.DTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 
@@ -16,7 +17,8 @@ public class ProductDTO {
     Long category_id; // 카테고리 아이디
     String brand; // 브랜드
     String title; // 제목
-    String image; // 대표이미지
+    String image; // 대표이미지 이름
+    MultipartFile img; // 대표이미지
     Long price; // 가격
     Long discount_rate; // 할인율
     Long delivery_fee; // 배송비

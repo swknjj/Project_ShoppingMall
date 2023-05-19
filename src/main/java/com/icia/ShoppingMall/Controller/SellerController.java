@@ -89,7 +89,7 @@ public class SellerController {
     // 판매자정보 수정 쿼리
     @PostMapping("/seller/update")
     public String sellerUpdate(@ModelAttribute SellerDTO sellerDTO) {
-        System.out.println("sellerDTO = " + sellerDTO);
+        sellerService.sellerUpdate(sellerDTO);
         return "redirect:/";
     }
 
