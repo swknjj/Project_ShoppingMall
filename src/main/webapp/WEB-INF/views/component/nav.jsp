@@ -50,7 +50,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="/product/productSave">상품 등록</a></li>
-                        <li><a class="dropdown-item" href="/product/productList">상품 목록</a></li>
+                        <li><a class="dropdown-item" href="/product/productListForm">상품 목록</a></li>
                     </ul>
                     </li>
                 </c:otherwise>

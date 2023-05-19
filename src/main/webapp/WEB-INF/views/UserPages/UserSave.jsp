@@ -93,7 +93,7 @@
             <div class="container">
                 <h4>약관동의</h4>
                 <label for="agree-all">
-                    <input type="checkbox" id="agree-all" name="agreeAll"><span> 모두 동의합니다</span>
+                    <input type="checkbox" id="agree-all" name="agreeAll" ><span> 모두 동의합니다</span>
                 </label><br>
                 <label for="TOS">
                     <input type="checkbox" id="TOS" name="agree_TOS"><span> TOS 동의 <strong>(필수)</strong></span>

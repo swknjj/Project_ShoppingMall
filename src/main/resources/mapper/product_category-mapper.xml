@@ -7,4 +7,5 @@
     <select id="findAllCategory" resultType="category">
         select * from product_category_table;
     </select>
+
 </mapper>

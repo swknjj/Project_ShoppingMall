@@ -1,12 +1,14 @@
 package com.icia.ShoppingMall.Service;
 
 import com.icia.ShoppingMall.DTO.ProductDTO;
+import com.icia.ShoppingMall.DTO.Product_categoryDTO;
 import com.icia.ShoppingMall.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -29,5 +31,9 @@ public class ProductService {
             }
             productRepository.productSave(productDTO);
         }
+    }
+    public List<ProductDTO> findCategory(Long category_id) {
+        List<ProductDTO> product_categoryDTOList = productRepository.findCategory(category_id);
+        return product_categoryDTOList;
     }
 }
