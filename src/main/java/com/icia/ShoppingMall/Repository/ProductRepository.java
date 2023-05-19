@@ -19,4 +19,8 @@ public class ProductRepository {
     public List<ProductDTO> findCategory(Long category_id) {
         return sql.selectList("Product.findCategory",category_id);
     }
+
+    public List<ProductDTO> findAll() {
+        return sql.selectList("Product.findAll");
+    }
 }

@@ -36,4 +36,9 @@ public class ProductService {
         List<ProductDTO> product_categoryDTOList = productRepository.findCategory(category_id);
         return product_categoryDTOList;
     }
+
+    public List<ProductDTO> findAll() {
+        List<ProductDTO> productDTOList = productRepository.findAll();
+        return productDTOList;
+    }
 }

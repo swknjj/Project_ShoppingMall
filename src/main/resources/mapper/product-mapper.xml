@@ -13,4 +13,8 @@
         select * from product_table where category_id = #{category_id}
     </select>
 
+    <select id="findAll" resultType="product">
+        select * from product_table;
+    </select>
+
 </mapper>

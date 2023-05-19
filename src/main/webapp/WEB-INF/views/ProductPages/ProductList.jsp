@@ -50,7 +50,7 @@
 
 
 <c:choose>
-    <c:when test="${productDTOList.size() == 0}">
+    <c:when test="${productDTOList != null}">
         <div class="row">
             <c:forEach items="${productDTOList}" var="DTOList">
                 <div class="col-4" style="width: 30%; height: 30%">

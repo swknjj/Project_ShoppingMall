@@ -62,12 +62,14 @@ public class ProductController {
     @GetMapping("/product/productListForm")
     public String productListForm(Model model) {
         List<Product_categoryDTO> product_categoryDTOList = product_category_service.findAllCategory();
+        List<ProductDTO> productDTOList = productService.findAll();
         model.addAttribute("list",product_categoryDTOList);
+        model.addAttribute("productDTOList",productDTOList);
         return "/ProductPages/ProductList";
     }
     // 상품리스트 상세이동
     @GetMapping("/product/productList")
-    public String pruductList(@RequestParam("category_id")Long category_id,Model model) {
+    public String productList(@RequestParam("category_id")Long category_id,Model model) {
         List<Product_categoryDTO> product_categoryDTOAllList = product_category_service.findAllCategory();
         model.addAttribute("list",product_categoryDTOAllList);
         List<ProductDTO> product_categoryDTOList = productService.findCategory(category_id);
