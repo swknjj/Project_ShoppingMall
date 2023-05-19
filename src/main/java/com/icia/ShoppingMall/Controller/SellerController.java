@@ -72,6 +72,33 @@ public class SellerController {
             return "/SellerPages/SellerDetail/SellerDetail";
         }
     }
+    // 판매자정보 수정 화면
+    @GetMapping("/seller/update")
+    public String sellerUpdateForm(HttpSession session,Model model) {
+        String nickname = (String)session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        SellerDTO sellerDTO = sellerService.findBySeller(userDTO.getUser_id());
+        if(sellerDTO==null){
+            return "/Response/error";
+        }else {
+            model.addAttribute("sellerDTO",sellerDTO);
+            return "/SellerPages/SellerDetail/SellerUpdate";
+        }
+    }
+
+    // 판매자정보 수정 쿼리
+    @PostMapping("/seller/update")
+    public String sellerUpdate(@ModelAttribute SellerDTO sellerDTO) {
+        System.out.println("sellerDTO = " + sellerDTO);
+        return "redirect:/";
+    }
+
+    // 판매자 삭제 쿼리
+    @GetMapping("/seller/delete")
+    public String sellerDelete(@RequestParam("seller_id")Long seller_id) {
+        sellerService.sellerDelete(seller_id);
+        return "redirect:/";
+    }
 
 
 }

@@ -23,4 +23,8 @@ public class SellerRepository {
     public void sellerSave(SellerDTO sellerDTO) {
         sql.insert("Seller.sellerSave",sellerDTO);
     }
+
+    public void sellerDelete(Long seller_id) {
+        sql.delete("Seller.sellerDelete",seller_id);
+    }
 }

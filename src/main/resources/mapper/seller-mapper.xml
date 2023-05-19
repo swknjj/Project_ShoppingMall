@@ -16,4 +16,8 @@
         insert into seller_table (user_id,company_name,representative,address,customer_center,email,registration_num)
             values (#{user_id},#{company_name},#{representative},#{address},#{customer_center},#{email},#{registration_num})
     </insert>
+
+    <delete id="sellerDelete" parameterType="Long">
+        delete from seller_table where seller_id = #{seller_id}
+    </delete>
 </mapper>

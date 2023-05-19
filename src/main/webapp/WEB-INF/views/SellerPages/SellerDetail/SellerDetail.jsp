@@ -33,7 +33,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/user/update">판매자 정보 수정</a>
+                <a class="nav-link" href="/seller/update">판매자 정보 수정</a>
             </li>
         </ul>
     </div>
