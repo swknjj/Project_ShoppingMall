@@ -16,7 +16,7 @@ public class PageDTO {
     }
     public PageDTO() {
         this.page = 1;
-        this.perPageNum = 10;
+        this.perPageNum = 12;
     }
     public int getPage() {
         return page;

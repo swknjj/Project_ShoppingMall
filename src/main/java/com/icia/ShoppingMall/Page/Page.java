@@ -14,7 +14,7 @@ public class Page {
     private int endPage;
     private boolean prev;
     private boolean next;
-    private int displayPageNum = 10;
+    private int displayPageNum = 12;
 
     public PageDTO getPageDTO() {
         return pageDTO;
