@@ -7,4 +7,13 @@
     <select id="findBySeller" resultType="seller" parameterType="Long">
         select * from seller_table where user_id=#{user_id}
     </select>
+
+    <select id="sellerNum_check" parameterType="Long" resultType="seller">
+        select * from seller_table where registration_num = #{reg}
+    </select>
+
+    <insert id="sellerSave" parameterType="seller">
+        insert into seller_table (user_id,company_name,representative,address,customer_center,email,registration_num)
+            values (#{user_id},#{company_name},#{representative},#{address},#{customer_center},#{email},#{registration_num})
+    </insert>
 </mapper>

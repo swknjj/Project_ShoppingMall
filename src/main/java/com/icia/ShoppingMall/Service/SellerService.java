@@ -14,4 +14,13 @@ public class SellerService {
         SellerDTO sellerDTO = sellerRepository.findBySeller(user_Id);
         return sellerDTO;
     }
+
+    public SellerDTO sellerNum_check(Long reg) {
+        SellerDTO sellerDTO = sellerRepository.sellerNum_check(reg);
+        return sellerDTO;
+    }
+
+    public void sellerSave(SellerDTO sellerDTO) {
+        sellerRepository.sellerSave(sellerDTO);
+    }
 }

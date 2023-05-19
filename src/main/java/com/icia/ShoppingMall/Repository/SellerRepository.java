@@ -14,4 +14,13 @@ public class SellerRepository {
         SellerDTO sellerDTO = sql.selectOne("Seller.findBySeller",user_id);
         return sellerDTO;
     }
+
+    public SellerDTO sellerNum_check(Long reg) {
+        SellerDTO sellerDTO = sql.selectOne("Seller.sellerNum_check",reg);
+        return sellerDTO;
+    }
+
+    public void sellerSave(SellerDTO sellerDTO) {
+        sql.insert("Seller.sellerSave",sellerDTO);
+    }
 }
