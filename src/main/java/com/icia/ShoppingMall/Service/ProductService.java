@@ -25,7 +25,7 @@ public class ProductService {
 
             if(productDTO.getImg()!=null) {
                 String originalFilename = productDTO.getImg().getOriginalFilename();
-                String savePath = "D:\\ShoppingMall_Img\\" + originalFilename;
+                String savePath = "D:\\Project_ShoppingMall\\img\\" + originalFilename;
                 productDTO.getImg().transferTo(new File(savePath));
                 productDTO.setImage(originalFilename);
             }
