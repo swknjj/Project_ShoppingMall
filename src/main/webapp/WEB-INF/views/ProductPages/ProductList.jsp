@@ -63,8 +63,10 @@
                             브랜드 : ${DTOList.brand}<br>
                             제품명 : ${DTOList.title}<br>
                             가격 : ${DTOList.price}
-                            <c:if test="${DTOList.discount_rate != null}"><br>
-                            할인 ${DTOList.discount_rate}%해서 ${DTOList.special_price}원!</c:if><br>
+                            <c:if test="${DTOList.discount_rate != 0}"><br>
+                            할인 ${DTOList.discount_rate}%해서 ${DTOList.special_price}원!
+                            </c:if><br>
+
                         </c:when>
                         <c:otherwise>
                             <div style="width: 100px; height: 100px">대표 사진이 없습니다</div>
