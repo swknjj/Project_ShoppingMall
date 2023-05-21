@@ -111,9 +111,10 @@
             </div>
             <div class="container">
                 <input type="submit" class="btn btn-primary" value="회원가입">
-                <button class="btn btn-secondary" onclick="back()">뒤로가기</button>
+
             </div>
         </form>
+        <button class="btn btn-secondary" onclick="back()">뒤로가기</button>
         <div class="container">
             이미 아이디가 있으신가요? <a href="/user/login">로그인</a><br>
         </div>

@@ -41,4 +41,9 @@ public class ProductService {
         List<ProductDTO> productDTOList = productRepository.findAll();
         return productDTOList;
     }
+
+    public int total() {
+        int result = productRepository.total();
+        return result;
+    }
 }

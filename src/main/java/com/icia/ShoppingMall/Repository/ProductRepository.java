@@ -23,4 +23,8 @@ public class ProductRepository {
     public List<ProductDTO> findAll() {
         return sql.selectList("Product.findAll");
     }
+
+    public int total() {
+        return sql.selectOne("Product.total");
+    }
 }

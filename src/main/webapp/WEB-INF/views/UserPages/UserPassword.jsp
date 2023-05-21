@@ -45,8 +45,8 @@
                     <input type="password" id="password" class="form-control" name="password" placeholder="수정할 비밀번호 입력"><br>
                     <input type="password" id="password-check" class="form-control" placeholder="비밀번호 확인"><br>
                     <input type='submit' class="btn btn-primary" value='수정하기'>
-                    <button class="btn btn-danger" onclick='back()'>뒤로가기</button>
                 </form>
+                <button class="btn btn-danger" onclick='back()'>뒤로가기</button>
             </div>
         </div>
     </div>

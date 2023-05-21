@@ -17,4 +17,7 @@
         select * from product_table;
     </select>
 
+    <select id="total" resultType="int">
+        select count(product_id) from product_table;
+    </select>
 </mapper>

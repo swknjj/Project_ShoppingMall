@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <form action="/user/update" method="post" onsubmit="return check()">
+            <form action="/user/update" method="post" onsubmit="return recheck()">
                 <input type="text" name="user_id" value="${userDTO.user_id}" style="display: none"><br>
                 <label for="user-nickname"><h4>별명 *필수항목</h4></label><br>
                 <input type="text" class="form-control" id="user-nickname" name="nickname" onblur="nickname_check()"
@@ -54,16 +54,16 @@
                        placeholder="- 제외">
                 <h4 id="birth-bottom"></h4>
                 <input type="submit" class="btn btn-primary" value="수정하기">
-
-                <button class="btn btn-secondary" onclick="back()">뒤로가기</button>
             </form>
+            <button class="btn btn-secondary" onclick="backto()">뒤로가기</button>
         </div>
     </div>
 </div>
+
 <%@include file="/WEB-INF/views/component/footer.jsp" %>
 </body>
 <script>
-    const back = () => {
+    const backto = () => {
         location.href = "/";
     }
     const nickname_check = () => {
@@ -105,7 +105,7 @@
             birth_bottom.innerText = "생년월일 확인";
         }
     }
-    const check = () => {
+    const recheck = () => {
         const typingNickname = document.getElementById("nickname")
         const birth = document.getElementById("birth");
         if(typingNickname.value.length==0){

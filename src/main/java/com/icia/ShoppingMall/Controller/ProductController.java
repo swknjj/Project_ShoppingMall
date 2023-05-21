@@ -5,6 +5,7 @@ import com.icia.ShoppingMall.DTO.Product_categoryDTO;
 import com.icia.ShoppingMall.DTO.SellerDTO;
 import com.icia.ShoppingMall.DTO.UserDTO;
 import com.icia.ShoppingMall.Page.Page;
+import com.icia.ShoppingMall.Page.PageDTO;
 import com.icia.ShoppingMall.Service.ProductService;
 import com.icia.ShoppingMall.Service.Product_Category_Service;
 import com.icia.ShoppingMall.Service.SellerService;
@@ -60,11 +61,20 @@ public class ProductController {
 
     // 상품리스트 이동
     @GetMapping("/product/productListForm")
-    public String productListForm(Model model) {
+    public String productListForm(Model model, HttpSession session, PageDTO pageDTO) {
         List<Product_categoryDTO> product_categoryDTOList = product_category_service.findAllCategory();
+        String result = (String)session.getAttribute("nickname");
+        if(result == null) {
+            return "/Response/notfound";
+        }
+        Page page = new Page();
+        page.setPageDTO(pageDTO);
+        int total = productService.total();
+        page.setTotalCount(total);
         List<ProductDTO> productDTOList = productService.findAll();
         model.addAttribute("list",product_categoryDTOList);
         model.addAttribute("productDTOList",productDTOList);
+        model.addAttribute("page",page);
         return "/ProductPages/ProductList";
     }
     // 상품리스트 상세이동
@@ -72,8 +82,9 @@ public class ProductController {
     public String productList(@RequestParam("category_id")Long category_id,Model model) {
         List<Product_categoryDTO> product_categoryDTOAllList = product_category_service.findAllCategory();
         model.addAttribute("list",product_categoryDTOAllList);
-        List<ProductDTO> product_categoryDTOList = productService.findCategory(category_id);
-        model.addAttribute("productDTOList",product_categoryDTOList);
+        List<ProductDTO> productDTOList = productService.findCategory(category_id);
+        model.addAttribute("productDTOList",productDTOList);
+
         return "/ProductPages/ProductList";
     }
 

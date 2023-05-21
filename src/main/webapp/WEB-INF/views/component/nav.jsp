@@ -13,7 +13,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">상품 목록</a>
+                    <a class="nav-link" href="/product/productListForm">상품 목록</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/user/save" id="navbarDropdown" role="button"
