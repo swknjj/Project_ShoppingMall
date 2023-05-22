@@ -63,7 +63,6 @@ public class ProductController {
                                   @RequestParam(value = "q", required = false, defaultValue = "") String q,
                                   @RequestParam(value = "type", required = false, defaultValue = "brand") String type,
                                   Model model, HttpSession session) {
-        System.out.println("page = " + page + ", q = " + q + ", type = " + type);
         List<Product_categoryDTO> product_categoryDTOList = product_category_service.findAllCategory();
         String result = (String) session.getAttribute("nickname");
         List<ProductDTO> productDTOList = null;

@@ -64,8 +64,8 @@
                         ${sessionScope.nickname}님 환영해요! <a href="/user/logout">로그아웃하기</a>　
                 </ul>
             </c:if>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="통합검색" aria-label="Search">
+            <form class="d-flex" method="get" action="/product/productListForm">
+                <input class="form-control me-2" type="search" name="q" placeholder="통합검색" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
