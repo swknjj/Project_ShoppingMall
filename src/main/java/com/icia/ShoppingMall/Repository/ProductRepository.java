@@ -6,7 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ProductRepository {
@@ -20,11 +22,19 @@ public class ProductRepository {
         return sql.selectList("Product.findCategory",category_id);
     }
 
-    public List<ProductDTO> findAll() {
-        return sql.selectList("Product.findAll");
+    public List<ProductDTO> findAll(Map<String,Integer> pagingParams) {
+        return sql.selectList("Product.findAll",pagingParams);
     }
 
     public int total() {
         return sql.selectOne("Product.total");
+    }
+
+    public List<ProductDTO> search(Map<String, Object> pagingParams) {
+        return sql.selectList("Product.search",pagingParams);
+    }
+
+    public int searchCount(Map<String, Object> pagingParams) {
+        return sql.selectOne("Product.searchCount",pagingParams);
     }
 }

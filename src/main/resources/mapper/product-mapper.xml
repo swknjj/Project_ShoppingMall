@@ -4,20 +4,60 @@
 
 
 <mapper namespace="Product">
-    <insert id="productSave" parameterType="product">
-        insert into product_table (seller_id,category_id,brand,title,image,price,discount_rate,delivery_fee,special_price,product_detail)
-            value(#{seller_id},#{category_id},#{brand},#{title},#{image},#{price},#{discount_rate},#{delivery_fee},#{special_price},#{product_detail})
+    <insert id="productSave" parameterType="product" useGeneratedKeys="true" keyProperty="product_id">
+        insert into product_table (seller_id, category_id, brand, title, image, price, discount_rate, delivery_fee,
+                                   special_price, product_detail)
+            value (#{seller_id},#{category_id},#{brand},#{title},#{image},#{price},#{discount_rate},#{delivery_fee},#{special_price},#{product_detail})
     </insert>
 
     <select id="findCategory" parameterType="Long" resultType="product">
-        select * from product_table where category_id = #{category_id}
+        select *
+        from product_table
+        where category_id = #{category_id}
     </select>
 
-    <select id="findAll" resultType="product">
-        select * from product_table;
+    <select id="findAll" parameterType="Map" resultType="product">
+        select *
+        from product_table
+        order by product_id desc limit #{start}, #{limit}
     </select>
 
     <select id="total" resultType="int">
-        select count(product_id) from product_table;
+        select count(product_id)
+        from product_table
     </select>
+
+    <select id="category_total" parameterType="Long" resultType="int">
+        select count(product_id)
+        from product_table
+        where category_id = #{category_id}
+    </select>
+
+    <select id="searchFindCategory" parameterType="Map" resultType="product">
+        select *
+        from product_table
+        where ${searchType} like concat('%', #{searchBox}, '%')
+        order by product_id desc limit #{page}, #{perPageNum}
+    </select>
+
+    <select id="searchTotal" parameterType="Map" resultType="int">
+        select count(product_id)
+        from product_table
+        where ${searchType} like concat('%', #{searchBox}, '%')
+    </select>
+
+    <select id="search" parameterType="Map" resultType="product">
+        select *
+        from product_table
+        where ${type} like concat('%', #{q}, '%')
+        order by product_id desc limit #{start}, #{limit}
+    </select>
+
+    <select id="searchCount" parameterType="Map" resultType="Integer">
+        select count(product_id)
+        from product_table
+        where ${type} like concat('%', #{q}, '%')
+    </select>
+
+
 </mapper>

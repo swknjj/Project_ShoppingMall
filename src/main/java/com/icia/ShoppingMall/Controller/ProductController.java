@@ -4,13 +4,11 @@ import com.icia.ShoppingMall.DTO.ProductDTO;
 import com.icia.ShoppingMall.DTO.Product_categoryDTO;
 import com.icia.ShoppingMall.DTO.SellerDTO;
 import com.icia.ShoppingMall.DTO.UserDTO;
-import com.icia.ShoppingMall.Page.Page;
 import com.icia.ShoppingMall.Page.PageDTO;
 import com.icia.ShoppingMall.Service.ProductService;
 import com.icia.ShoppingMall.Service.Product_Category_Service;
 import com.icia.ShoppingMall.Service.SellerService;
 import com.icia.ShoppingMall.Service.UserService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,17 +36,17 @@ public class ProductController {
     @GetMapping("/product/productSave")
     public String productSaveForm(HttpSession session, Model model) {
 
-        String nickname = (String)session.getAttribute("nickname");
+        String nickname = (String) session.getAttribute("nickname");
         UserDTO userDTO = userService.findByNickname(nickname);
         SellerDTO sellerDTO = sellerService.findBySeller(userDTO.getUser_id());
-        if(sellerDTO != null) {
+        if (sellerDTO != null) {
             List<Product_categoryDTO> product_categoryDTOList = product_category_service.findAllCategory();
             model.addAttribute("userDTO", userDTO.getUser_id());
             model.addAttribute(("sellerDTO"), sellerDTO.getSeller_id());
             model.addAttribute("list", product_categoryDTOList);
             return "/ProductPages/ProductSave";
-        }else {
-            return "Response/error";
+        } else {
+            return "Response/nullPointSellerDTO";
         }
     }
 
@@ -61,29 +59,42 @@ public class ProductController {
 
     // 상품리스트 이동
     @GetMapping("/product/productListForm")
-    public String productListForm(Model model, HttpSession session, PageDTO pageDTO) {
+    public String productListForm(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                  @RequestParam(value = "q", required = false, defaultValue = "") String q,
+                                  @RequestParam(value = "type", required = false, defaultValue = "brand") String type,
+                                  Model model, HttpSession session) {
+        System.out.println("page = " + page + ", q = " + q + ", type = " + type);
         List<Product_categoryDTO> product_categoryDTOList = product_category_service.findAllCategory();
-        String result = (String)session.getAttribute("nickname");
-        if(result == null) {
+        String result = (String) session.getAttribute("nickname");
+        List<ProductDTO> productDTOList = null;
+        PageDTO pageDTO = null;
+        if (result == null) {
             return "/Response/notfound";
         }
-        Page page = new Page();
-        page.setPageDTO(pageDTO);
-        int total = productService.total();
-        page.setTotalCount(total);
-        List<ProductDTO> productDTOList = productService.findAll();
-        model.addAttribute("list",product_categoryDTOList);
+        if(q.equals("")){
+            productDTOList = productService.findAll(page);
+            pageDTO = productService.pagingParam(page);
+        }else {
+            productDTOList = productService.search(page,type,q);
+            pageDTO = productService.pagingSearchParam(page,type,q);
+        }
+        model.addAttribute("list", product_categoryDTOList);
         model.addAttribute("productDTOList",productDTOList);
-        model.addAttribute("page",page);
+        model.addAttribute("paging",pageDTO);
+        model.addAttribute("q",q);
+        model.addAttribute("type",type);
+        System.out.println("page = " + page + ", q = " + q);
+
         return "/ProductPages/ProductList";
     }
+
     // 상품리스트 상세이동
     @GetMapping("/product/productList")
-    public String productList(@RequestParam("category_id")Long category_id,Model model) {
+    public String productList(@RequestParam("category_id") Long category_id, Model model) {
         List<Product_categoryDTO> product_categoryDTOAllList = product_category_service.findAllCategory();
-        model.addAttribute("list",product_categoryDTOAllList);
+        model.addAttribute("list", product_categoryDTOAllList);
         List<ProductDTO> productDTOList = productService.findCategory(category_id);
-        model.addAttribute("productDTOList",productDTOList);
+        model.addAttribute("productDTOList", productDTOList);
 
         return "/ProductPages/ProductList";
     }

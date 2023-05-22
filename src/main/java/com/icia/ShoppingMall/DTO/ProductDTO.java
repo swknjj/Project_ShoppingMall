@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Setter
 @Getter
@@ -28,4 +29,5 @@ public class ProductDTO {
     Long rating_sum; // 별점 합
     Long rating_cnt; // 별점 개수
     String product_detail; // 상품디테일
+    List<MultipartFile> productProfile; // 상품디테일 imageDTO에 저장될 것
 }
