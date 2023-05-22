@@ -87,7 +87,7 @@ public class ProductController {
         return "/ProductPages/ProductList";
     }
 
-    // 상품리스트 상세이동
+//     상품리스트 상세이동
     @GetMapping("/product/productList")
     public String productList(@RequestParam("category_id") Long category_id, Model model) {
         List<Product_categoryDTO> product_categoryDTOAllList = product_category_service.findAllCategory();
@@ -96,6 +96,12 @@ public class ProductController {
         model.addAttribute("productDTOList", productDTOList);
 
         return "/ProductPages/ProductList";
+    }
+    @GetMapping("product/prodcutDetail")
+    public String productDetail(@RequestParam("product_id")Long id,Model model){
+        ProductDTO productDTO = productService.findDTO(id);
+        model.addAttribute("productDTO",productDTO);
+        return "/ProductPages/ProductDetail";
     }
 
 }

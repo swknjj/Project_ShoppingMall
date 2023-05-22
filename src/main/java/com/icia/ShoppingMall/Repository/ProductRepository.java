@@ -43,4 +43,8 @@ public class ProductRepository {
     public void saveFile(Product_imageDTO productImageDTO) {
         sql.insert("Detail.saveFile",productImageDTO);
     }
+
+    public ProductDTO findDTO(Long product_id) {
+        return sql.selectOne("Product.findDTO",product_id);
+    }
 }

@@ -59,6 +59,7 @@
         <div class="row" style="width: 80%; margin: 0 auto">
             <c:forEach items="${productDTOList}" var="DTOList">
                 <div class="col-4" style="width: 30%; height: 30%">
+                    <a href="/product/prodcutDetail?product_id=${DTOList.product_id}">
                     <c:if test="${!empty DTOList.image}">
                         <div style="width: 300px; height: 300px">
                             <img src="${pageContext.request.contextPath}/upload/${DTOList.storedFileName}" alt=""
@@ -77,6 +78,7 @@
                     <c:if test="${DTOList.discount_rate != 0}">
                         <br>할인 ${DTOList.discount_rate}%해서 ${DTOList.special_price}원!
                     </c:if><br>
+                    </a>
                 </div>
             </c:forEach>
         </div>

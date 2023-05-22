@@ -125,4 +125,8 @@ public class ProductService {
         pageDTO.setStartPage(startPage);
         return pageDTO;
     }
+
+    public ProductDTO findDTO(Long id) {
+        return productRepository.findDTO(id);
+    }
 }

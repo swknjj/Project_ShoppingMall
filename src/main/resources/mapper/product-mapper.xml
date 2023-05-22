@@ -59,5 +59,7 @@
         where ${type} like concat('%', #{q}, '%')
     </select>
 
-
+    <select id="findDTO" parameterType="Long" resultType="product">
+        select * from product_table where product_id = #{product_id}
+    </select>
 </mapper>
