@@ -2,6 +2,7 @@ package com.icia.ShoppingMall.Repository;
 
 import com.icia.ShoppingMall.DTO.ProductDTO;
 import com.icia.ShoppingMall.DTO.Product_categoryDTO;
+import com.icia.ShoppingMall.DTO.Product_imageDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,8 +16,9 @@ public class ProductRepository {
     @Autowired
     private SqlSessionTemplate sql;
 
-    public void productSave(ProductDTO productDTO) {
+    public ProductDTO productSave(ProductDTO productDTO) {
         sql.insert("Product.productSave",productDTO);
+        return productDTO;
     }
     public List<ProductDTO> findCategory(Long category_id) {
         return sql.selectList("Product.findCategory",category_id);
@@ -36,5 +38,9 @@ public class ProductRepository {
 
     public int searchCount(Map<String, Object> pagingParams) {
         return sql.selectOne("Product.searchCount",pagingParams);
+    }
+
+    public void saveFile(Product_imageDTO productImageDTO) {
+        sql.insert("Detail.saveFile",productImageDTO);
     }
 }

@@ -61,7 +61,7 @@
                 <div class="col-4" style="width: 30%; height: 30%">
                     <c:if test="${!empty DTOList.image}">
                         <div style="width: 300px; height: 300px">
-                            <img src="${pageContext.request.contextPath}/upload/${DTOList.image}" alt=""
+                            <img src="${pageContext.request.contextPath}/upload/${DTOList.storedFileName}" alt=""
                                  width="100%" height="100%"><br>
                         </div>
                     </c:if>

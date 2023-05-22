@@ -50,6 +50,9 @@
             <label for="product-image">등록할 대표 이미지</label>
             <input type="file" accept="image/*" class="form-control" id="product-image" name="img" placeholder="등록할 브랜드 입력">
 
+            <label for="product-image">등록할 상세정보 이미지</label>
+            <input type="file" accept="image/*" class="form-control" id="product-image-detail" multiple name="productProfile" placeholder="상세정보 이미지 입력">
+
             <label for="product-price">등록할 상품 가격</label>
             <input type="text" class="form-control" id="product-price" name="price" placeholder="등록할 상품 가격 입력">
 

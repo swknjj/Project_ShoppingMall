@@ -2,10 +2,12 @@ package com.icia.ShoppingMall.Service;
 
 import com.icia.ShoppingMall.DTO.ProductDTO;
 import com.icia.ShoppingMall.DTO.Product_categoryDTO;
+import com.icia.ShoppingMall.DTO.Product_imageDTO;
 import com.icia.ShoppingMall.Page.PageDTO;
 import com.icia.ShoppingMall.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,12 +30,29 @@ public class ProductService {
 
             if (productDTO.getImg() != null) {
                 String originalFilename = productDTO.getImg().getOriginalFilename();
-                String savePath = "D:\\ShoppingMall_Img\\" + originalFilename;
-
+                String storedFileName = System.currentTimeMillis()+originalFilename;
+                String savePath = "D:\\Spring_Framework\\Project_ShoppingMall\\img\\" + storedFileName;
                 productDTO.getImg().transferTo(new File(savePath));
                 productDTO.setImage(originalFilename);
+                productDTO.setStoredFileName(storedFileName);
             }
-            productRepository.productSave(productDTO);
+            ProductDTO dto = productRepository.productSave(productDTO);
+            if(!(productDTO.getProductProfile().get(0).isEmpty())) {
+                for(MultipartFile productFile : productDTO.getProductProfile()) {
+                    String originalName = productFile.getOriginalFilename();
+                    String storedFileName = System.currentTimeMillis()+originalName;
+                    Product_imageDTO productImageDTO = new Product_imageDTO();
+                    productImageDTO.setProduct_id(dto.getProduct_id());
+                    productImageDTO.setSeller_id(dto.getSeller_id());
+                    productImageDTO.setFile_name(originalName);
+                    productImageDTO.setStoredFileName(storedFileName);
+                    String savePath = "D:\\Spring_Framework\\Project_ShoppingMall\\detail_img\\" + storedFileName;
+                    productFile.transferTo(new File(savePath));
+                    productRepository.saveFile(productImageDTO);
+                }
+
+            }
+
         }
     }
 

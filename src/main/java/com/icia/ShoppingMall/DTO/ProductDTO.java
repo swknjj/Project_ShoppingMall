@@ -20,6 +20,7 @@ public class ProductDTO {
     String title; // 제목
     String image; // 대표이미지 이름
     MultipartFile img; // 대표이미지
+    String storedFileName; // 변형이름
     Long price; // 가격
     Long discount_rate; // 할인율
     Long delivery_fee; // 배송비

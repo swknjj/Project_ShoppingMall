@@ -5,9 +5,9 @@
 
 <mapper namespace="Product">
     <insert id="productSave" parameterType="product" useGeneratedKeys="true" keyProperty="product_id">
-        insert into product_table (seller_id, category_id, brand, title, image, price, discount_rate, delivery_fee,
+        insert into product_table (seller_id, category_id, brand, title, image,storedFileName, price, discount_rate, delivery_fee,
                                    special_price, product_detail)
-            value (#{seller_id},#{category_id},#{brand},#{title},#{image},#{price},#{discount_rate},#{delivery_fee},#{special_price},#{product_detail})
+            value (#{seller_id},#{category_id},#{brand},#{title},#{image},#{storedFileName},#{price},#{discount_rate},#{delivery_fee},#{special_price},#{product_detail})
     </insert>
 
     <select id="findCategory" parameterType="Long" resultType="product">
