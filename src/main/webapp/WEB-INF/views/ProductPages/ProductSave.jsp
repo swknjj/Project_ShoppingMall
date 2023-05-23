@@ -26,7 +26,7 @@
 <div id="container1" style="margin-top: 20px; margin-left: 20px">
     <a href="/" style="text-decoration-line: none">Our lovely home</a>
 </div>
-<div class="container2" style="margin: 0 auto; width: 100%; height: 70%">
+<div class="container2" style="margin: 0 auto; width: 100%; height: 70%; overflow-y: scroll">
     <div id="product-save" style="width: 50%; margin: 0 auto; height: auto; text-align: center;">
         <h2 style="margin-top: 100px">상품 등록</h2><br>
         <form action="/product/productSave" method="post" enctype="multipart/form-data" onsubmit="return finalCheck()">
@@ -64,6 +64,36 @@
 
             <label for="product-detail">등록할 상품 설명 입력</label>
             <input type="text" class="form-control" id="product-detail" name="product_detail" placeholder="등록할 상품 설명 입력" size="50">
+
+            <p>
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">옵션 1 추가</a>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">옵션 2 추가</button>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">전체 옵션 열기</button>
+            </p>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body">
+                            <label for="option1-contents">내용</label>
+                            <input type="text" id="option1-contents" name="content1" class="form-control" placeholder="내용 입력">
+                            <label for="option1-price">금액</label>
+                            <input type="text" id="option1-price" name="price1" class="form-control" placeholder="금액 입력">
+                            <label for="option1-stock">재고</label>
+                            <input type="text" id="option1-stock" name="stock1" class="form-control" placeholder="재고 입력">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="card card-body">
+                            <label for="option2-contents">내용</label>
+                            <input type="text" id="option2-contents" name="content2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">
+                            <label for="option2-price">금액</label>
+                            <input type="text" id="option2-price" name="price2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">
+                            <label for="option2-stock">재고</label>
+                            <input type="text" id="option2-stock" name="stock2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">
+                        </div>
+                    </div>
+                </div>
 
             <input type="submit" class="btn btn-primary" value="상품등록">
         </form>

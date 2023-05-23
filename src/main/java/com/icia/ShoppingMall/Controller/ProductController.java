@@ -1,9 +1,6 @@
 package com.icia.ShoppingMall.Controller;
 
-import com.icia.ShoppingMall.DTO.ProductDTO;
-import com.icia.ShoppingMall.DTO.Product_categoryDTO;
-import com.icia.ShoppingMall.DTO.SellerDTO;
-import com.icia.ShoppingMall.DTO.UserDTO;
+import com.icia.ShoppingMall.DTO.*;
 import com.icia.ShoppingMall.Page.PageDTO;
 import com.icia.ShoppingMall.Service.ProductService;
 import com.icia.ShoppingMall.Service.Product_Category_Service;
@@ -39,6 +36,7 @@ public class ProductController {
         String nickname = (String) session.getAttribute("nickname");
         UserDTO userDTO = userService.findByNickname(nickname);
         SellerDTO sellerDTO = sellerService.findBySeller(userDTO.getUser_id());
+
         if (sellerDTO != null) {
             List<Product_categoryDTO> product_categoryDTOList = product_category_service.findAllCategory();
             model.addAttribute("userDTO", userDTO.getUser_id());
@@ -52,8 +50,24 @@ public class ProductController {
 
     // 상품등록 처리
     @PostMapping("/product/productSave")
-    public String productSave(@ModelAttribute ProductDTO productDTO) throws IOException {
-        productService.productSave(productDTO);
+    public String productSave(@ModelAttribute ProductDTO productDTO, Option1 option1,Option2 option2) throws IOException {
+        ProductDTO dto = productService.productSave(productDTO);
+        if(option1!=null){
+            Product_option1DTO product_option1DTO = new Product_option1DTO();
+            product_option1DTO.setProduct_id(dto.getProduct_id());
+            product_option1DTO.setContent(option1.getContent1());
+            product_option1DTO.setPrice(option1.getPrice1());
+            product_option1DTO.setStock(option1.getStock1());
+            Product_option1DTO optionDTO1 = productService.option1save(product_option1DTO);
+            if(option2!=null) {
+                Product_option2DTO product_option2DTO = new Product_option2DTO();
+                product_option2DTO.setOption_id(optionDTO1.getOption_id());
+                product_option2DTO.setContent(option2.getContent2());
+                product_option2DTO.setPrice(option2.getPrice2());
+                product_option2DTO.setStock(option2.getStock2());
+                productService.option2save(product_option2DTO);
+            }
+        }
         return "redirect:/";
     }
 
@@ -101,6 +115,14 @@ public class ProductController {
     public String productDetail(@RequestParam("product_id")Long id,Model model){
         ProductDTO productDTO = productService.findDTO(id);
         model.addAttribute("productDTO",productDTO);
+        List<Product_imageDTO> product_imageDTOList = productService.findFile(id);
+        if(product_imageDTOList==null){
+            model.addAttribute("imageDTO",null);
+        }
+        System.out.println("product_imageDTO = " + product_imageDTOList);
+        model.addAttribute("imageDTO",product_imageDTOList);
+
+
         return "/ProductPages/ProductDetail";
     }
 

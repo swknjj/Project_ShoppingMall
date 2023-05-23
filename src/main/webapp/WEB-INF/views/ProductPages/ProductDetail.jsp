@@ -44,16 +44,28 @@
             <p><a href="#">${productDTO.brand}</a></p>
             <h2>${productDTO.title}</h2>
             <c:if test="${productDTO.rating_sum!=null}">
-                <p>별점 : ${productDTO.rationg_sum}</p>
+                <p>별점 : ${productDTO.rating_sum}</p>
             </c:if>
             <c:if test="${productDTO.rating_cnt}">
                 <p>별점 개수 : ${productDTO.rating_cnt}</p>
             </c:if>
             <c:if test="${productDTO.discount_rate!=0}">
-                <p style="color: violet">${productDTO.discount_rate}% <span style="color: gray;">${productDTO.price}원</span></p>
+                <p style="color: violet">${productDTO.discount_rate}% <del><span style="color: gray;">${productDTO.price}원</span></del></p>
                 <strong>${productDTO.special_price}원</strong>
             </c:if>
         </div>
+    </div>
+</div>
+<div class="container">
+    <div id="info">
+        ${productDTO.product_detail}
+    </div>
+    <div id="image-container">
+        <c:if test="${imageDTO!=null}">
+            <c:forEach items="${imageDTO}" var="imageDTO">
+                <img src="${pageContext.request.contextPath}/upload/${imageDTO.storedFileName}" alt="이미지" width="100%" height="100%"><br>
+            </c:forEach>
+        </c:if>
     </div>
 </div>
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Option">
+    <insert id="option1save" parameterType="option1" useGeneratedKeys="true" keyProperty="option_id">
+        insert into product_option1_table (product_id,content,price,stock)
+            values (#{product_id},#{content},#{price},#{stock})
+    </insert>
+
+    <insert id="option2save" parameterType="option2">
+        insert into product_option2_table (option_id,content,price,stock)
+            values (#{option_id},#{content},#{price},#{stock})
+    </insert>
+
+</mapper>

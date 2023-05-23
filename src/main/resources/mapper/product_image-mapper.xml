@@ -8,4 +8,8 @@
         insert into product_image_table (product_id,seller_id,file_name,storedFileName)
             values (#{product_id},#{seller_id},#{file_name},#{storedFileName})
     </insert>
+
+    <select id="findFile" parameterType="Long" resultType="image">
+        select * from product_image_table where product_id = #{product_id}
+    </select>
 </mapper>

@@ -1,8 +1,6 @@
 package com.icia.ShoppingMall.Repository;
 
-import com.icia.ShoppingMall.DTO.ProductDTO;
-import com.icia.ShoppingMall.DTO.Product_categoryDTO;
-import com.icia.ShoppingMall.DTO.Product_imageDTO;
+import com.icia.ShoppingMall.DTO.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,5 +44,18 @@ public class ProductRepository {
 
     public ProductDTO findDTO(Long product_id) {
         return sql.selectOne("Product.findDTO",product_id);
+    }
+
+    public List<Product_imageDTO> findFile(Long product_id) {
+        return sql.selectList("Detail.findFile",product_id);
+    }
+
+    public Product_option1DTO option1save(Product_option1DTO productOption1DTO) {
+        sql.insert("Option.option1save",productOption1DTO);
+        return productOption1DTO;
+    }
+
+    public void option2save(Product_option2DTO productOption2DTO) {
+        sql.insert("Option.option2save",productOption2DTO);
     }
 }
