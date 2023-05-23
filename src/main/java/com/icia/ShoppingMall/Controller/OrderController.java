@@ -54,6 +54,9 @@ public class OrderController {
 
             orderDTO.setTotalPrice(finalPrice);
         }
+        if(addressDTOList.size()==0){
+            return "/Response/notfoundaddress";
+        }
         System.out.println("final = "+orderDTO);
         model.addAttribute("userDTO",userDTO);
         model.addAttribute("addressDTO",addressDTOList);
