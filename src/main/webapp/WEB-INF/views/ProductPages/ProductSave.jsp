@@ -84,14 +84,14 @@
                 </div>
                 <div class="col">
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body">
-                            <label for="option2-contents">내용</label>
-                            <input type="text" id="option2-contents" name="content2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">
-                            <label for="option2-price">금액</label>
-                            <input type="text" id="option2-price" name="price2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">
-                            <label for="option2-stock">재고</label>
-                            <input type="text" id="option2-stock" name="stock2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">
-                        </div>
+<%--                        <div class="card card-body">--%>
+<%--                            <label for="option2-contents">내용</label>--%>
+<%--                            <input type="text" id="option2-contents" name="content2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">--%>
+<%--                            <label for="option2-price">금액</label>--%>
+<%--                            <input type="text" id="option2-price" name="price2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">--%>
+<%--                            <label for="option2-stock">재고</label>--%>
+<%--                            <input type="text" id="option2-stock" name="stock2" class="form-control" placeholder="옵션2는 옵션1이 작성되어야 가능">--%>
+<%--                        </div>--%>
                     </div>
                 </div>
 
@@ -110,7 +110,12 @@
         const brand = document.getElementById("product-brand");
         const title = document.getElementById("product-title");
         const price = document.getElementById("product-price");
+        const dis = document.getElementById("product-discount-rate");
+        const delevery = document.getElementById("product-delivery-fee");
         const price_check = /^[0-9]+$/;
+        const option_content = document.getElementById("option1-contents");
+        const option_price = document.getElementById("option1-price");
+        const option_stock = document.getElementById("option1-stock");
         if(brand.value.length==0){
             brand.focus();
             return false;
@@ -120,8 +125,38 @@
         }else if(price.value.length==0){
             price.focus();
             return false;
-        }else if(!(price.value.match(price_check))){
+        }else if(!(price.value.match(price_check))) {
             alert("가격에는 숫자만 입력");
+            return false;
+        }else if(dis.value.length==0) {
+            dis.focus();
+            return false;
+        }else if(!(dis.value.match(price_check))) {
+            alert("숫자만 입력")
+            dis.focus();
+            return false;
+        }else if(delevery.value.length==0){
+            delevery.focus();
+            return false;
+        }else if(!(delevery.value.match(price_check))) {
+            alert("숫자만 입력")
+            dis.focus();
+            return false;
+        }else if(option_content.value.length==0) {
+            option_content.focus();
+            return false;
+        }else if(option_price.value.length==0) {
+            option_price.focus();
+            return false;
+        }else if(!(option_price.value.match(price_check))) {
+            alert("숫자만 입력");
+            option_price.focus();
+            return false;
+        }else if(option_stock.value.length==0) {
+            option_stock.focus();
+            return false;
+        }else if(!(option_stock.value.match(price_check))){
+            alert("숫자만 입력");
             return false;
         }else {
             alert("상품등록 완료");

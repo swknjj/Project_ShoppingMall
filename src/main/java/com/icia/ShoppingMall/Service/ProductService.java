@@ -20,12 +20,10 @@ public class ProductService {
 
     public ProductDTO productSave(ProductDTO productDTO) throws IOException {
         ProductDTO str = null;
-        if (productDTO.getDiscount_rate() != null) {
+        if (productDTO.getDiscount_rate() != 0) {
             double discountRate = productDTO.getDiscount_rate();
             int specialPrice = (int) (productDTO.getPrice() - (productDTO.getPrice() * (discountRate * 0.01)));
-
-            String specialPriceStr = String.valueOf(specialPrice);
-            productDTO.setSpecial_price(specialPriceStr);
+            productDTO.setSpecial_price(specialPrice);
 
             if (productDTO.getImg() != null) {
                 String originalFilename = productDTO.getImg().getOriginalFilename();
@@ -146,4 +144,15 @@ public class ProductService {
     public void option2save(Product_option2DTO productOption2DTO) {
         productRepository.option2save(productOption2DTO);
     }
+
+    public Product_option1DTO findOption1(Long product_id) {
+        Product_option1DTO product_option1DTO = productRepository.findOption1(product_id);
+        return product_option1DTO;
+    }
+
+    public Product_option2DTO findOption2(Long option_id) {
+        Product_option2DTO product_option2DTO = productRepository.findOption2(option_id);
+        return product_option2DTO;
+    }
+
 }

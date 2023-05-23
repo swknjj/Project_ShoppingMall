@@ -52,21 +52,21 @@ public class ProductController {
     @PostMapping("/product/productSave")
     public String productSave(@ModelAttribute ProductDTO productDTO, Option1 option1,Option2 option2) throws IOException {
         ProductDTO dto = productService.productSave(productDTO);
-        if(option1!=null){
+        if(option1 != null && !option1.getContent1().isEmpty()){
             Product_option1DTO product_option1DTO = new Product_option1DTO();
             product_option1DTO.setProduct_id(dto.getProduct_id());
             product_option1DTO.setContent(option1.getContent1());
             product_option1DTO.setPrice(option1.getPrice1());
             product_option1DTO.setStock(option1.getStock1());
             Product_option1DTO optionDTO1 = productService.option1save(product_option1DTO);
-            if(option2!=null) {
-                Product_option2DTO product_option2DTO = new Product_option2DTO();
-                product_option2DTO.setOption_id(optionDTO1.getOption_id());
-                product_option2DTO.setContent(option2.getContent2());
-                product_option2DTO.setPrice(option2.getPrice2());
-                product_option2DTO.setStock(option2.getStock2());
-                productService.option2save(product_option2DTO);
-            }
+//            if(option2 != null && !option2.getContent2().isEmpty()) {
+//                Product_option2DTO product_option2DTO = new Product_option2DTO();
+//                product_option2DTO.setOption_id(optionDTO1.getOption_id());
+//                product_option2DTO.setContent(option2.getContent2());
+//                product_option2DTO.setPrice(option2.getPrice2());
+//                product_option2DTO.setStock(option2.getStock2());
+//                productService.option2save(product_option2DTO);
+//            }
         }
         return "redirect:/";
     }
@@ -108,7 +108,6 @@ public class ProductController {
         model.addAttribute("list", product_categoryDTOAllList);
         List<ProductDTO> productDTOList = productService.findCategory(category_id);
         model.addAttribute("productDTOList", productDTOList);
-
         return "/ProductPages/ProductList";
     }
     @GetMapping("product/prodcutDetail")
@@ -121,6 +120,12 @@ public class ProductController {
         }
         System.out.println("product_imageDTO = " + product_imageDTOList);
         model.addAttribute("imageDTO",product_imageDTOList);
+        Product_option1DTO product_option1DTO = productService.findOption1(productDTO.getProduct_id());
+//        Product_option2DTO product_option2DTO = productService.findOption2(product_option1DTO.getOption_id());
+        model.addAttribute("option1",product_option1DTO);
+//        if(product_option2DTO != null) {
+//            model.addAttribute("option2",product_option2DTO);
+//        }
 
 
         return "/ProductPages/ProductDetail";

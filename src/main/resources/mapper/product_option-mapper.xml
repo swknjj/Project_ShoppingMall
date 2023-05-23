@@ -14,4 +14,12 @@
             values (#{option_id},#{content},#{price},#{stock})
     </insert>
 
+    <select id="findOption1" parameterType="Long" resultType="option1">
+        select * from product_option1_table where product_id = #{product_id}
+    </select>
+
+    <select id="findOption2" parameterType="Long" resultType="option2">
+        select * from product_option2_table where option_id = #{option_id}
+    </select>
+
 </mapper>

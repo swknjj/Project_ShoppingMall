@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class Option1 {
     String content1; // 내용
-    Long price1; // 가격
+    int price1; // 가격
     Long stock1; // 재고
 }

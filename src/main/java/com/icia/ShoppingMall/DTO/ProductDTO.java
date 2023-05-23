@@ -21,10 +21,10 @@ public class ProductDTO {
     String image; // 대표이미지 이름
     MultipartFile img; // 대표이미지
     String storedFileName; // 변형이름
-    Long price; // 가격
-    Long discount_rate; // 할인율
-    Long delivery_fee; // 배송비
-    String special_price; // 특가
+    int price; // 가격
+    int discount_rate; // 할인율
+    int delivery_fee; // 배송비
+    int special_price; // 특가
     Timestamp created_at; // 생성일
     Timestamp updated_at; // 수정일
     Long rating_sum; // 별점 합

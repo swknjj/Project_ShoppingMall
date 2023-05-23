@@ -20,4 +20,8 @@ public class AddressService {
         List<AddressDTO> addressDTOList = addressRepository.findByAddress(user_Id);
         return addressDTOList;
     }
+
+    public List<AddressDTO> findByOrderAddress(Long user_id) {
+        return addressRepository.findByOrderAddress(user_id);
+    }
 }

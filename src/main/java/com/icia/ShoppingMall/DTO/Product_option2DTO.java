@@ -11,6 +11,6 @@ public class Product_option2DTO {
     Long option_content_id; // 옵션내용아이디
     Long option_id; // 옵션아이디
     String content; // 내용
-    Long price; // 가격
+    int price; // 가격
     Long stock; // 재고
 }

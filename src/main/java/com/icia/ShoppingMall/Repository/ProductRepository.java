@@ -58,4 +58,13 @@ public class ProductRepository {
     public void option2save(Product_option2DTO productOption2DTO) {
         sql.insert("Option.option2save",productOption2DTO);
     }
+
+    public Product_option1DTO findOption1(Long product_id) {
+        return sql.selectOne("Option.findOption1",product_id);
+    }
+
+    public Product_option2DTO findOption2(Long option_id) {
+        return sql.selectOne("Option.findOption2",option_id);
+    }
+
 }
