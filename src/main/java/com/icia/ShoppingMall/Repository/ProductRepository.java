@@ -67,4 +67,7 @@ public class ProductRepository {
         return sql.selectOne("Option.findOption2",option_id);
     }
 
+    public void updateOption1(Product_option1DTO productOption1DTO) {
+        sql.update("Option.updateOption1",productOption1DTO);
+    }
 }

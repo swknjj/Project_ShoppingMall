@@ -155,4 +155,7 @@ public class ProductService {
         return product_option2DTO;
     }
 
+    public void updateOption1(Product_option1DTO productOption1DTO) {
+        productRepository.updateOption1(productOption1DTO);
+    }
 }

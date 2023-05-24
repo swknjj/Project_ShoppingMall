@@ -5,7 +5,7 @@
     <typeAliases>
         <typeAlias type="com.icia.ShoppingMall.DTO.AddressDTO" alias="address"></typeAlias>
         <typeAlias type="com.icia.ShoppingMall.DTO.InquiryDTO" alias="inquiry"></typeAlias>
-        <typeAlias type="com.icia.ShoppingMall.DTO.OrderDTO" alias="order"></typeAlias>
+        <typeAlias type="com.icia.ShoppingMall.DTO.OrderDTO" alias="orders"></typeAlias>
         <typeAlias type="com.icia.ShoppingMall.DTO.Product_categoryDTO" alias="category"></typeAlias>
         <typeAlias type="com.icia.ShoppingMall.DTO.Product_imageDTO" alias="image"></typeAlias>
         <typeAlias type="com.icia.ShoppingMall.DTO.Product_option1DTO" alias="option1"></typeAlias>

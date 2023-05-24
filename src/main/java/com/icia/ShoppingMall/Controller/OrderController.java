@@ -1,9 +1,6 @@
 package com.icia.ShoppingMall.Controller;
 
-import com.icia.ShoppingMall.DTO.AddressDTO;
-import com.icia.ShoppingMall.DTO.OrderDTO;
-import com.icia.ShoppingMall.DTO.ProductDTO;
-import com.icia.ShoppingMall.DTO.UserDTO;
+import com.icia.ShoppingMall.DTO.*;
 import com.icia.ShoppingMall.Service.AddressService;
 import com.icia.ShoppingMall.Service.OrderService;
 import com.icia.ShoppingMall.Service.ProductService;
@@ -80,5 +77,16 @@ public class OrderController {
         }else {
             return new ResponseEntity<>(addressDTO,HttpStatus.CONFLICT);
         }
+    }
+
+    @PostMapping("/order/save")
+    public String orderSave(@ModelAttribute OrderDTO orderDTO) {
+        orderService.orderSave(orderDTO);
+        Product_option1DTO product_option1DTO = productService.findOption1(orderDTO.getProduct_id());
+        product_option1DTO.setStock(product_option1DTO.getStock()-orderDTO.getQuantity());
+        productService.updateOption1(product_option1DTO);
+        System.out.println("orderDTO = " + orderDTO);
+
+        return "redirect:/";
     }
 }

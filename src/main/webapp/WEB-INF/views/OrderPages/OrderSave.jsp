@@ -62,33 +62,43 @@
             </div>
 
             <div>
-                <strong id="address-name">${addressDTO.get(0).address_name}</strong><br>
-                <input type="text" id="address_id" value="${addressDTO.get(0).address_id}">
-                <div class="form-floating mb-3">
-                    받는사람
-                    <input type="text" id="address-receiver" class="form-control" readonly value="${addressDTO.get(0).receiver}">
-                </div>
-                <div class="form-floating mb-3">
-                    우편번호
-                    <input type="text" id="address-zipcode" class="form-control" readonly value="${addressDTO.get(0).zipcode}">
-                </div>
-                <div class="form-floating mb-3">
-                    주소
-                    <input type="text" id="address-user" class="form-control" readonly value="${addressDTO.get(0).address1}-${addressDTO.get(0).address2}-${addressDTO.get(0).reference}-${addressDTO.get(0).receiver}">
-                </div>
-                <div class="form-floating mb-3">
-                    전화번호
-                    <input type="text" id="address-mobile" class="form-control" readonly value="${addressDTO.get(0).phone_number}">
-                </div>
+                <form action="/order/save" method="post" id="form-submit">
+                    <strong id="address-name">${addressDTO.get(0).address_name}</strong><br>
+                    <input type="hidden" name="product_id" value="${productDTO.product_id}">
+                    <input type="hidden" name="user_id" value="${userDTO.user_id}">
+                    <input type="hidden" name="seller_id" value="${orderDTO.seller_id}">
+                    <input type="hidden" name="quantity" value="${orderDTO.quantity}">
+                    <input type="hidden" name="totalPrice" value="${orderDTO.totalPrice}">
+                    <input type="hidden" id="address_id" name="address_id" value="${addressDTO.get(0).address_id}">
+                    <div class="form-floating mb-3">
+                        받는사람
+                        <input type="text" id="address-receiver" class="form-control" readonly
+                               value="${addressDTO.get(0).receiver}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        우편번호
+                        <input type="text" id="address-zipcode" class="form-control" readonly
+                               value="${addressDTO.get(0).zipcode}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        주소
+                        <input type="text" id="address-user" class="form-control" readonly
+                               value="${addressDTO.get(0).address1}-${addressDTO.get(0).address2}-${addressDTO.get(0).reference}-${addressDTO.get(0).receiver}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        전화번호
+                        <input type="text" id="address-mobile" class="form-control" readonly
+                               value="${addressDTO.get(0).phone_number}">
+                    </div>
+                    <select name="memo" id="select-memo" class="form-select mb-3">
+                        <option value="" selected disabled hidden>배송시 요청사항을 선택해주세요</option>
+                        <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
+                        <option value="배송 전에 미리 연락주세요">배송 전에 미리 연락주세요</option>
+                        <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
+                        <option value="부재 시 전화주시거나 문자주세요">부재 시 전화주시거나 문자주세요</option>
+                    </select>
+                </form>
             </div>
-
-            <select name="memo" id="select-memo" class="form-select mb-3">
-                <option value="" selected disabled hidden>배송시 요청사항을 선택해주세요</option>
-                <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
-                <option value="배송 전에 미리 연락주세요">배송 전에 미리 연락주세요</option>
-                <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
-                <option value="부재 시 전화주시거나 문자주세요">부재 시 전화주시거나 문자주세요</option>
-            </select>
             <h2>주문자</h2>
             <label for="user-email" class="form-label">이메일</label>
             <input type="text" id="user-email" class="form-control" value="${userDTO.email_full}">
@@ -139,16 +149,17 @@
                 <label for="check" class="form-check-label">개인정보 수집 이용 및 제 3자 제공 동의<strong>(필수)</strong></label>
             </div>
             <p>본인은 만 14세 이상이며, 주문 내용을 확인하였습니다</p>
-            <input type="button" value="결제하기" class="btn btn-primary">
+            <input type="submit" value="결제하기" onclick="submitForm()" class="btn btn-primary">
         </div>
     </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function openAddressSelectionModal() {
         $('#addressModal').modal('show');
     }
-
+    const address_id = $("input[name='selectedAddress']:checked").val();
     const ajaxSelect = () => {
         $('#addressModal').modal('hide');
         const address_id = $("input[name='selectedAddress']:checked").val();
@@ -177,6 +188,10 @@
             }
         })
 
+    }
+    const submitForm = () => {
+        document.getElementById("address_id").value =
+            document.getElementById("form-submit").submit();
     }
 </script>
 </body>

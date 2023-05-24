@@ -15,6 +15,7 @@ public class OrderDTO {
     Long product_id; // 상품아이디
     Long user_id; // 회원아이디
     Long seller_id; // 판매자아이디
+    Long address_id; // 구매자 주소
     int quantity; // 상품여부
     String status; // 주문상태여부
     int totalPrice; // 총금액
