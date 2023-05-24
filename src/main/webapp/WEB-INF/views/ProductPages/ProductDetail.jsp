@@ -75,6 +75,9 @@
                                 ${option1.stock}개 남음
                         </option>
                     </select>
+                    <c:if test="${productDTO.delivery_fee != 0}">
+                        배송비 : ${productDTO.delivery_fee}
+                    </c:if>
                 </c:if>
                 <input type="submit" id="sell" class="btn btn-primary mb-3" disabled="disabled" value="구매하기">
             </form>
