@@ -46,12 +46,11 @@
             <c:forEach items="${orderDTO}" var="order">
             <tr>
                 <td>${order.order_id}</td>
-                <td>${order.product_id}</td>
+                <td><a href="/product/productDetail?product_id=${order.product_id}">${order.product_id}</a></td>
                 <td>${order.quantity}</td>
                 <td>${order.totalPrice}</td>
                 <td>${order.created_at}</td>
                 <td>${order.memo}</td>
-
             </tr>
             </c:forEach>
         </table>
