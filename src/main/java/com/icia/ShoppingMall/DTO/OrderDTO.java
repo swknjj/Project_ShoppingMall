@@ -20,6 +20,6 @@ public class OrderDTO {
     String status; // 주문상태여부
     int totalPrice; // 총금액
     Timestamp updated_at; // 구매확정날짜
-    Timestamp create_at; // 주문일자
+    Timestamp created_at; // 주문일자
     String memo; // 배송메모
 }

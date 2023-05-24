@@ -62,4 +62,14 @@
     <select id="findDTO" parameterType="Long" resultType="product">
         select * from product_table where product_id = #{product_id}
     </select>
+
+<!--    <select id="findUserOrderList" parameterType="java.util.List" resultType="product">-->
+<!--        SELECT * FROM product_table WHERE product_id IN-->
+<!--        <foreach item="item" collection="list" open="(" separator="," close=")">-->
+<!--            #{item}-->
+<!--        </foreach>-->
+<!--    </select>-->
+
+
 </mapper>
+

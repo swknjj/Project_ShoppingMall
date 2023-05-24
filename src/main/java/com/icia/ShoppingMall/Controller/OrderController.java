@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,7 @@ public class OrderController {
         orderDTO.setUser_id(userDTO.getUser_id());
         ProductDTO productDTO = productService.findDTO(orderDTO.getProduct_id());
         List<AddressDTO> addressDTOList = addressService.findByOrderAddress(userDTO.getUser_id());
-        if(productDTO.getDiscount_rate()!=0) {
+        if (productDTO.getDiscount_rate() != 0) {
             long quantity = orderDTO.getQuantity();
             long specialPrice = productDTO.getSpecial_price();
             long deliveryFee = productDTO.getDelivery_fee();
@@ -45,7 +46,7 @@ public class OrderController {
             int finalPrice = (int) totalPrice;
 
             orderDTO.setTotalPrice(finalPrice);
-        }else {
+        } else {
             long quantity = orderDTO.getQuantity();
             long price = productDTO.getPrice();
             long deliveryFee = productDTO.getDelivery_fee();
@@ -55,25 +56,25 @@ public class OrderController {
 
             orderDTO.setTotalPrice(finalPrice);
         }
-        if(addressDTOList.size()==0){
+        if (addressDTOList.size() == 0) {
             return "/Response/notfoundaddress";
         }
-        System.out.println("final = "+orderDTO);
-        model.addAttribute("userDTO",userDTO);
-        model.addAttribute("addressDTO",addressDTOList);
-        model.addAttribute("orderDTO",orderDTO);
-        model.addAttribute("productDTO",productDTO);
+        System.out.println("final = " + orderDTO);
+        model.addAttribute("userDTO", userDTO);
+        model.addAttribute("addressDTO", addressDTOList);
+        model.addAttribute("orderDTO", orderDTO);
+        model.addAttribute("productDTO", productDTO);
         return "/OrderPages/OrderSave";
     }
 
     // 오더 선택시 배송지 주소 선택하는 ajax
     @PostMapping("/address-changer")
-    public ResponseEntity address_changer(@RequestParam("address_id")Long address_id){
+    public ResponseEntity address_changer(@RequestParam("address_id") Long address_id) {
         AddressDTO addressDTO = addressService.findByAddressOne(address_id);
-        if(addressDTO != null) {
+        if (addressDTO != null) {
             return new ResponseEntity<>(addressDTO, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(addressDTO,HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(addressDTO, HttpStatus.CONFLICT);
         }
     }
 
@@ -81,10 +82,34 @@ public class OrderController {
     public String orderSave(@ModelAttribute OrderDTO orderDTO) {
         orderService.orderSave(orderDTO);
         Product_option1DTO product_option1DTO = productService.findOption1(orderDTO.getProduct_id());
-        product_option1DTO.setStock(product_option1DTO.getStock()-orderDTO.getQuantity());
+        product_option1DTO.setStock(product_option1DTO.getStock() - orderDTO.getQuantity());
         productService.updateOption1(product_option1DTO);
         System.out.println("orderDTO = " + orderDTO);
 
         return "redirect:/";
+    }
+
+    // MyPage에서 주문목록으로
+    @GetMapping("/order/orderList")
+    public String orderList(HttpSession session, Model model) {
+        String nickname = (String) session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        List<OrderDTO> orderDTOList = orderService.orderList(userDTO.getUser_id());
+        if (orderDTOList.size() == 0) {
+            return "/Response/notfoundorderDTO";
+        } else {
+            model.addAttribute("orderDTO", orderDTOList);
+        }
+//        List<Long> product_idList = new ArrayList<>();
+//        List<ProductDTO> productDTOList = productService.findUserOrderList(product_idList);
+
+//        if (productDTOList.size() == 0) {
+//            return "/Response/notfoundorderDTO";
+//        } else {
+//            model.addAttribute("productDTO", productDTOList);
+//        }
+        System.out.println(orderDTOList);
+//        System.out.println(productDTOList);
+        return "/UserPages/UserDetail/UserOrderList";
     }
 }

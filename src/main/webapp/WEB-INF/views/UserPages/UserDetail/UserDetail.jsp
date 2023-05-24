@@ -37,7 +37,7 @@
                 <a class="nav-link active" aria-current="page" href="#">프로필</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/order/orderList">장바구니</a>
+                <a class="nav-link" href="/order/orderList">나의 주문 목록</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/review/reviewList">나의 리뷰</a>

@@ -156,4 +156,9 @@ public class ProductService {
     public void updateOption1(Product_option1DTO productOption1DTO) {
         productRepository.updateOption1(productOption1DTO);
     }
+
+    public List<ProductDTO> findUserOrderList(List<Long> product_idList) {
+        List<ProductDTO> productDTOList = productRepository.findUserOrderList(product_idList);
+        return productDTOList;
+    }
 }

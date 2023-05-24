@@ -71,4 +71,8 @@ public class ProductRepository {
     public void updateOption1(Product_option1DTO productOption1DTO) {
         sql.update("Option.updateOption1",productOption1DTO);
     }
+
+    public List<ProductDTO> findUserOrderList(List<Long> product_idList) {
+        return sql.selectList("Product.findUserOrderList",product_idList);
+    }
 }
