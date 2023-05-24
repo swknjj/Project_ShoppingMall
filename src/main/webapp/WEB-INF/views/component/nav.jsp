@@ -65,6 +65,10 @@
                 </ul>
             </c:if>
             <form class="d-flex" method="get" action="/product/productListForm">
+                <select id="search-select" class="form-control" name="type">
+                    <option value="brand">브랜드</option>
+                    <option value="title">제품명</option>
+                </select>
                 <input class="form-control me-2" type="search" name="q" placeholder="통합검색" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>

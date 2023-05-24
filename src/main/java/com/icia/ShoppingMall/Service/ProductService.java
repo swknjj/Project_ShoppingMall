@@ -19,50 +19,48 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public ProductDTO productSave(ProductDTO productDTO) throws IOException {
-        ProductDTO str = null;
+        ProductDTO dto = null;
         if (productDTO.getDiscount_rate() != 0) {
             double discountRate = productDTO.getDiscount_rate();
             int specialPrice = (int) (productDTO.getPrice() - (productDTO.getPrice() * (discountRate * 0.01)));
             productDTO.setSpecial_price(specialPrice);
+        } else {
+            productDTO.setSpecial_price(productDTO.getPrice());
+        }
+        if (productDTO.getImg() != null) {
+            String originalFilename = productDTO.getImg().getOriginalFilename();
+            String storedFileName = System.currentTimeMillis() + originalFilename;
+            String savePath = "D:\\SpringFramework_img\\" + storedFileName;
 
-            if (productDTO.getImg() != null) {
-                String originalFilename = productDTO.getImg().getOriginalFilename();
-                String storedFileName = System.currentTimeMillis()+originalFilename;
+            productDTO.getImg().transferTo(new File(savePath));
+            productDTO.setImage(originalFilename);
+            productDTO.setStoredFileName(storedFileName);
+        }
+        dto = productRepository.productSave(productDTO);
+
+        if (!(productDTO.getProductProfile().get(0).isEmpty())) {
+            for (MultipartFile productFile : productDTO.getProductProfile()) {
+                String originalName = productFile.getOriginalFilename();
+                String storedFileName = System.currentTimeMillis() + originalName;
+                Product_imageDTO productImageDTO = new Product_imageDTO();
+                productImageDTO.setProduct_id(dto.getProduct_id());
+                productImageDTO.setSeller_id(dto.getSeller_id());
+                productImageDTO.setFile_name(originalName);
+                productImageDTO.setStoredFileName(storedFileName);
                 String savePath = "D:\\SpringFramework_img\\" + storedFileName;
 
-                productDTO.getImg().transferTo(new File(savePath));
-                productDTO.setImage(originalFilename);
-                productDTO.setStoredFileName(storedFileName);
+                productFile.transferTo(new File(savePath));
+                productRepository.saveFile(productImageDTO);
             }
-            ProductDTO dto = productRepository.productSave(productDTO);
-            str = dto;
-            if(!(productDTO.getProductProfile().get(0).isEmpty())) {
-                for(MultipartFile productFile : productDTO.getProductProfile()) {
-                    String originalName = productFile.getOriginalFilename();
-                    String storedFileName = System.currentTimeMillis()+originalName;
-                    Product_imageDTO productImageDTO = new Product_imageDTO();
-                    productImageDTO.setProduct_id(dto.getProduct_id());
-                    productImageDTO.setSeller_id(dto.getSeller_id());
-                    productImageDTO.setFile_name(originalName);
-                    productImageDTO.setStoredFileName(storedFileName);
-                    String savePath = "D:\\SpringFramework_img\\" + storedFileName;
-
-                    productFile.transferTo(new File(savePath));
-                    productRepository.saveFile(productImageDTO);
-                }
-
-            }
-
         }
-        return str;
+        return dto;
     }
+
 
     public List<ProductDTO> findCategory(Long category_id) {
         List<ProductDTO> product_categoryDTOList = productRepository.findCategory(category_id);
         return product_categoryDTOList;
     }
-
-
 
 
     public List<ProductDTO> findAll(int page) {
@@ -82,8 +80,8 @@ public class ProductService {
         int productCount = productRepository.total();
         int maxPage = (int) (Math.ceil((double) productCount / pageLimit));
         int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
-        int endPage = startPage + blockLimit -1;
-        if(endPage>maxPage){
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
             endPage = maxPage;
         }
         PageDTO pageDTO = new PageDTO();
@@ -96,12 +94,12 @@ public class ProductService {
 
     public List<ProductDTO> search(int page, String type, String q) {
         int pageLimit = 9;
-        int pagingStart = (page-1)*pageLimit;
-        Map<String,Object> pagingParams= new HashMap<>();
-        pagingParams.put("start",pagingStart);
-        pagingParams.put("limit",pageLimit);
-        pagingParams.put("q",q);
-        pagingParams.put("type",type);
+        int pagingStart = (page - 1) * pageLimit;
+        Map<String, Object> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+        pagingParams.put("q", q);
+        pagingParams.put("type", type);
         List<ProductDTO> productDTOList = productRepository.search(pagingParams);
         return productDTOList;
     }

@@ -70,8 +70,6 @@ public class OrderController {
     @PostMapping("/address-changer")
     public ResponseEntity address_changer(@RequestParam("address_id")Long address_id){
         AddressDTO addressDTO = addressService.findByAddressOne(address_id);
-        System.out.println("address_id = " + address_id);
-        System.out.println("addressDTO = " + addressDTO);
         if(addressDTO != null) {
             return new ResponseEntity<>(addressDTO, HttpStatus.OK);
         }else {

@@ -76,7 +76,7 @@
                             <label for="option1-contents">내용</label>
                             <input type="text" id="option1-contents" name="content1" class="form-control" placeholder="내용 입력">
                             <label for="option1-price">금액</label>
-                            <input type="text" id="option1-price" name="price1" class="form-control" readonly>
+                            <input type="text" id="option1-price" name="price1" class="form-control" readonly value="0">
                             <label for="option1-stock">재고</label>
                             <input type="text" id="option1-stock" name="stock1" class="form-control" placeholder="재고 입력">
                         </div>

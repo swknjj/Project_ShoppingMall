@@ -61,6 +61,8 @@
                     ${productDTO.price}원
                 </c:otherwise>
             </c:choose>
+            <c:choose>
+                <c:when test="${option1.stock > 0}">
             <form action="/order/save" method="get">
                 <input type="hidden" name="product_id" value="${productDTO.product_id}">
                 <input type="hidden" name="seller_id" value="${productDTO.seller_id}">
@@ -76,6 +78,11 @@
                 </c:if>
                 <input type="submit" id="sell" class="btn btn-primary mb-3" disabled="disabled" value="구매하기">
             </form>
+                </c:when>
+                <c:otherwise>
+                    <h2 style="color: red">매진입니다</h2>
+                </c:otherwise>
+            </c:choose>
             <div class="row">
                 <div class="col-10">
                     <strong>주문금액</strong>

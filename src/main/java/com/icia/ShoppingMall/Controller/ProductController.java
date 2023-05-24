@@ -53,6 +53,7 @@ public class ProductController {
     public String productSave(@ModelAttribute ProductDTO productDTO, Option1 option1,Option2 option2) throws IOException {
 
         ProductDTO dto = productService.productSave(productDTO);
+        System.out.println("dto= "+dto);
         if(option1 != null && !option1.getContent1().isEmpty()){
             Product_option1DTO product_option1DTO = new Product_option1DTO();
             product_option1DTO.setProduct_id(dto.getProduct_id());
@@ -101,8 +102,6 @@ public class ProductController {
         model.addAttribute("paging",pageDTO);
         model.addAttribute("q",q);
         model.addAttribute("type",type);
-        System.out.println("page = " + page + ", q = " + q);
-
         return "/ProductPages/ProductList";
     }
 
@@ -123,7 +122,6 @@ public class ProductController {
         if(product_imageDTOList==null){
             model.addAttribute("imageDTO",null);
         }
-        System.out.println("product_imageDTO = " + product_imageDTOList);
         model.addAttribute("imageDTO",product_imageDTOList);
         Product_option1DTO product_option1DTO = productService.findOption1(productDTO.getProduct_id());
 //        Product_option2DTO product_option2DTO = productService.findOption2(product_option1DTO.getOption_id());
