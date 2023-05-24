@@ -2,13 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <title>Our lovely home</title>
     <script src="/resources/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
     <link rel="stylesheet" href="/resources/css/link.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <title>Our lovely home</title>
     <style>
         label {
             display: block;
@@ -21,22 +20,68 @@
     <a href="/" style="text-decoration-line: none">Our lovely home</a>
 </div>
 <div class="container">
+
     <div class="row">
         <div class="col-8">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>주문/결제</h2>
                 <div>
                     <h3 class="me-auto">배송지</h3>
-                    <a href="#">변경</a>
+                    <a href="#" onclick="openAddressSelectionModal()">변경</a>
                 </div>
             </div>
-            <strong>${addressDTO.get(0).address_name}</strong><br>
-            <p>
-                우편번호: ${addressDTO.get(0).zipcode}<br>
-                주소: ${addressDTO.get(0).address1}-${addressDTO.get(0).address2}-${addressDTO.get(0).reference}-${addressDTO.get(0).receiver}<br>
-                전화번호: ${addressDTO.get(0).phone_number}<br>
-            </p>
-            <input type="hidden" name="address_id" value="${addressDTO.get(0).address_id}">
+
+            <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addressModalLabel">배송지 선택</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <c:forEach items="${addressDTO}" var="address">
+                                <div>
+                                    <label>
+                                        <input type="radio" id="select-address-id" name="selectedAddress"
+                                               value="${address.address_id}">
+                                            ${address.address_name}<br>
+                                        우편번호: ${address.zipcode}<br>
+                                        주소: ${address.address1}-${address.address2}-${address.reference}-${address.receiver}<br>
+                                        전화번호: ${address.phone_number}<br>
+                                    </label>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-primary" onclick="ajaxSelect()">선택</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <strong id="address-name">${addressDTO.get(0).address_name}</strong><br>
+                <input type="text" id="address_id" value="${addressDTO.get(0).address_id}">
+                <div class="form-floating mb-3">
+                    받는사람
+                    <input type="text" id="address-receiver" class="form-control" readonly value="${addressDTO.get(0).receiver}">
+                </div>
+                <div class="form-floating mb-3">
+                    우편번호
+                    <input type="text" id="address-zipcode" class="form-control" readonly value="${addressDTO.get(0).zipcode}">
+                </div>
+                <div class="form-floating mb-3">
+                    주소
+                    <input type="text" id="address-user" class="form-control" readonly value="${addressDTO.get(0).address1}-${addressDTO.get(0).address2}-${addressDTO.get(0).reference}-${addressDTO.get(0).receiver}">
+                </div>
+                <div class="form-floating mb-3">
+                    전화번호
+                    <input type="text" id="address-mobile" class="form-control" readonly value="${addressDTO.get(0).phone_number}">
+                </div>
+            </div>
+
             <select name="memo" id="select-memo" class="form-select mb-3">
                 <option value="" selected disabled hidden>배송시 요청사항을 선택해주세요</option>
                 <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
@@ -94,14 +139,45 @@
                 <label for="check" class="form-check-label">개인정보 수집 이용 및 제 3자 제공 동의<strong>(필수)</strong></label>
             </div>
             <p>본인은 만 14세 이상이며, 주문 내용을 확인하였습니다</p>
-            <input type="submit" class="btn btn-primary" value="${orderDTO.totalPrice}원 결제하기">
+            <input type="button" value="결제하기" class="btn btn-primary">
         </div>
     </div>
 </div>
-
-<%@include file="/WEB-INF/views/component/footer.jsp" %>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    function openAddressSelectionModal() {
+        $('#addressModal').modal('show');
+    }
 
+    const ajaxSelect = () => {
+        $('#addressModal').modal('hide');
+        const address_id = $("input[name='selectedAddress']:checked").val();
+        const address_receiver = document.getElementById("address-receiver");
+        const address_typing = document.getElementById("address_id");
+        const address_name = document.getElementById("address-name");
+        const address_zipcode = document.getElementById("address-zipcode");
+        const address_user = document.getElementById("address-user");
+        const address_phoneNumber = document.getElementById("address-mobile");
+        $.ajax({
+            type: "post",
+            url: "/address-changer",
+            data: {
+                "address_id": address_id
+            },
+            success: function (res) {
+                address_receiver.value = res.receiver;
+                address_typing.value = res.address_id;
+                address_name.value = res.address_name;
+                address_zipcode.value = res.zipcode;
+                address_user.value = res.address1 + res.address2 + res.reference;
+                address_phoneNumber.value = res.phone_number;
+            },
+            error: function () {
+                alert("에러!")
+            }
+        })
+
+    }
 </script>
+</body>
 </html>

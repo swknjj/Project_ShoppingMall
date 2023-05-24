@@ -9,10 +9,14 @@ import com.icia.ShoppingMall.Service.OrderService;
 import com.icia.ShoppingMall.Service.ProductService;
 import com.icia.ShoppingMall.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -65,4 +69,16 @@ public class OrderController {
         return "/OrderPages/OrderSave";
     }
 
+    // 오더 선택시 배송지 주소 선택하는 ajax
+    @PostMapping("/address-changer")
+    public ResponseEntity address_changer(@RequestParam("address_id")Long address_id){
+        AddressDTO addressDTO = addressService.findByAddressOne(address_id);
+        System.out.println("address_id = " + address_id);
+        System.out.println("addressDTO = " + addressDTO);
+        if(addressDTO != null) {
+            return new ResponseEntity<>(addressDTO, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(addressDTO,HttpStatus.CONFLICT);
+        }
+    }
 }

@@ -23,4 +23,8 @@ public class AddressRepository {
     public List<AddressDTO> findByOrderAddress(Long user_id) {
         return sql.selectList("Address.findByOrderAddress",user_id);
     }
+
+    public AddressDTO findByAddressOne(Long address_id) {
+        return sql.selectOne("Address.findByAddressOne",address_id);
+    }
 }

@@ -51,12 +51,17 @@ public class ProductController {
     // 상품등록 처리
     @PostMapping("/product/productSave")
     public String productSave(@ModelAttribute ProductDTO productDTO, Option1 option1,Option2 option2) throws IOException {
+
         ProductDTO dto = productService.productSave(productDTO);
         if(option1 != null && !option1.getContent1().isEmpty()){
             Product_option1DTO product_option1DTO = new Product_option1DTO();
             product_option1DTO.setProduct_id(dto.getProduct_id());
             product_option1DTO.setContent(option1.getContent1());
-            product_option1DTO.setPrice(option1.getPrice1());
+            if(dto.getDiscount_rate()!=0) {
+                product_option1DTO.setPrice(dto.getSpecial_price());
+            }else {
+                product_option1DTO.setPrice(dto.getPrice());
+            }
             product_option1DTO.setStock(option1.getStock1());
             Product_option1DTO optionDTO1 = productService.option1save(product_option1DTO);
 //            if(option2 != null && !option2.getContent2().isEmpty()) {

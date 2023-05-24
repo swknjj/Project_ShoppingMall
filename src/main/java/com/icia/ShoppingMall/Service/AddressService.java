@@ -24,4 +24,9 @@ public class AddressService {
     public List<AddressDTO> findByOrderAddress(Long user_id) {
         return addressRepository.findByOrderAddress(user_id);
     }
+
+    public AddressDTO findByAddressOne(Long address_id) {
+        AddressDTO addressDTO = addressRepository.findByAddressOne(address_id);
+        return addressDTO;
+    }
 }

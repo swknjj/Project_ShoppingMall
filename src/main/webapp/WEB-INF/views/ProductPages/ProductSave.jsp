@@ -76,7 +76,7 @@
                             <label for="option1-contents">내용</label>
                             <input type="text" id="option1-contents" name="content1" class="form-control" placeholder="내용 입력">
                             <label for="option1-price">금액</label>
-                            <input type="text" id="option1-price" name="price1" class="form-control" placeholder="금액 입력">
+                            <input type="text" id="option1-price" name="price1" class="form-control" readonly>
                             <label for="option1-stock">재고</label>
                             <input type="text" id="option1-stock" name="stock1" class="form-control" placeholder="재고 입력">
                         </div>
@@ -145,13 +145,6 @@
         }else if(option_content.value.length==0) {
             option_content.focus();
             return false;
-        }else if(option_price.value.length==0) {
-            option_price.focus();
-            return false;
-        }else if(!(option_price.value.match(price_check))) {
-            alert("숫자만 입력");
-            option_price.focus();
-            return false;
         }else if(option_stock.value.length==0) {
             option_stock.focus();
             return false;
@@ -159,6 +152,11 @@
             alert("숫자만 입력");
             return false;
         }else {
+            if(dis.value!=0){
+                option_price.value = dis.value * price.value;
+            }else {
+                option_price.value = price.value;
+            }
             alert("상품등록 완료");
             return true;
         }

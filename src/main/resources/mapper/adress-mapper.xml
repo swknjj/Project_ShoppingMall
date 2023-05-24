@@ -16,4 +16,8 @@
     <select id="findByOrderAddress" parameterType="Long" resultType="address">
         select * from address_table where user_id = #{user_id}
     </select>
+
+    <select id="findByAddressOne" parameterType="Long" resultType="address">
+        select * from address_table where address_id = #{address_id}
+    </select>
 </mapper>
