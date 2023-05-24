@@ -59,7 +59,7 @@
         <div class="row" style="width: 80%; margin: 0 auto">
             <c:forEach items="${productDTOList}" var="DTOList">
                 <div class="col-4" style="width: 30%; height: 30%">
-                    <a href="/product/prodcutDetail?product_id=${DTOList.product_id}">
+                    <a href="/product/productDetail?product_id=${DTOList.product_id}">
                     <c:if test="${!empty DTOList.image}">
                         <div style="width: 300px; height: 300px">
                             <img src="${pageContext.request.contextPath}/upload/${DTOList.storedFileName}" alt=""

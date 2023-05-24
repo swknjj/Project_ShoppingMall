@@ -114,7 +114,7 @@ public class ProductController {
         model.addAttribute("productDTOList", productDTOList);
         return "/ProductPages/ProductList";
     }
-    @GetMapping("product/prodcutDetail")
+    @GetMapping("/product/productDetail")
     public String productDetail(@RequestParam("product_id")Long id,Model model){
         ProductDTO productDTO = productService.findDTO(id);
         model.addAttribute("productDTO",productDTO);

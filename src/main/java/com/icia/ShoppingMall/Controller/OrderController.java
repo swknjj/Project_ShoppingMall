@@ -100,16 +100,6 @@ public class OrderController {
         } else {
             model.addAttribute("orderDTO", orderDTOList);
         }
-//        List<Long> product_idList = new ArrayList<>();
-//        List<ProductDTO> productDTOList = productService.findUserOrderList(product_idList);
-
-//        if (productDTOList.size() == 0) {
-//            return "/Response/notfoundorderDTO";
-//        } else {
-//            model.addAttribute("productDTO", productDTOList);
-//        }
-        System.out.println(orderDTOList);
-//        System.out.println(productDTOList);
         return "/UserPages/UserDetail/UserOrderList";
     }
 }
