@@ -41,25 +41,25 @@
             <div class="carousel-item active">
                 <img src="/resources/img/img1.jpg" class="d-block w-100" width="100%" height="80%" alt="Slide 1">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>의류</h5>
+                    <strong style="color:black;">의류</strong>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="/resources/img/img2.jpg" class="d-block w-100" width="100%" height="80%" alt="Slide 2">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>화장품</h5>
+                    <strong style="color:black;">화장품</strong>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="/resources/img/img3.jpg" class="d-block w-100" width="100%" height="80%" alt="Slide 3">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>가구</h5>
+                    <strong style="color:black;">가구</strong>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="/resources/img/img4.jpg" class="d-block w-100" width="100%" height="80%" alt="Slide 3">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>도서</h5>
+                    <strong style="color:black;">도서</strong>
                 </div>
             </div>
         </div>
