@@ -31,4 +31,8 @@ public class SellerRepository {
     public void sellerUpdate(SellerDTO sellerDTO) {
         sql.update("Seller.sellerUpdate",sellerDTO);
     }
+
+    public SellerDTO findByIdSeller(Long seller_id) {
+        return sql.selectOne("Seller.findByIdSeller",seller_id);
+    }
 }

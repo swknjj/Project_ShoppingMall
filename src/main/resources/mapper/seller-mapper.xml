@@ -27,4 +27,8 @@
                                 email = #{email} where seller_id = #{seller_id}
 
     </update>
+
+    <select id="findByIdSeller" parameterType="Long" resultType="seller">
+        select * from seller_table where seller_id = #{seller_id}
+    </select>
 </mapper>

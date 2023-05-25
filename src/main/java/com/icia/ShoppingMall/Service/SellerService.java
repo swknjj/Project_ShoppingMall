@@ -31,4 +31,9 @@ public class SellerService {
     public void sellerUpdate(SellerDTO sellerDTO) {
         sellerRepository.sellerUpdate(sellerDTO);
     }
+
+    public SellerDTO findByIdSeller(Long seller_id) {
+        SellerDTO sellerDTO = sellerRepository.findByIdSeller(seller_id);
+        return sellerDTO;
+    }
 }

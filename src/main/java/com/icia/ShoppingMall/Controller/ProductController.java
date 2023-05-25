@@ -2,17 +2,13 @@ package com.icia.ShoppingMall.Controller;
 
 import com.icia.ShoppingMall.DTO.*;
 import com.icia.ShoppingMall.Page.PageDTO;
-import com.icia.ShoppingMall.Service.ProductService;
-import com.icia.ShoppingMall.Service.Product_Category_Service;
-import com.icia.ShoppingMall.Service.SellerService;
-import com.icia.ShoppingMall.Service.UserService;
+import com.icia.ShoppingMall.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -28,6 +24,8 @@ public class ProductController {
     private SellerService sellerService;
     @Autowired
     private Product_Category_Service product_category_service;
+    @Autowired
+    private ReviewService reviewService;
 
     // 상품등록 페이지로 이동
     @GetMapping("/product/productSave")
@@ -50,17 +48,17 @@ public class ProductController {
 
     // 상품등록 처리
     @PostMapping("/product/productSave")
-    public String productSave(@ModelAttribute ProductDTO productDTO, Option1 option1,Option2 option2) throws IOException {
+    public String productSave(@ModelAttribute ProductDTO productDTO, Option1 option1, Option2 option2) throws IOException {
 
         ProductDTO dto = productService.productSave(productDTO);
-        System.out.println("dto= "+dto);
-        if(option1 != null && !option1.getContent1().isEmpty()){
+        System.out.println("dto= " + dto);
+        if (option1 != null && !option1.getContent1().isEmpty()) {
             Product_option1DTO product_option1DTO = new Product_option1DTO();
             product_option1DTO.setProduct_id(dto.getProduct_id());
             product_option1DTO.setContent(option1.getContent1());
-            if(dto.getDiscount_rate()!=0) {
+            if (dto.getDiscount_rate() != 0) {
                 product_option1DTO.setPrice(dto.getSpecial_price());
-            }else {
+            } else {
                 product_option1DTO.setPrice(dto.getPrice());
             }
             product_option1DTO.setStock(option1.getStock1());
@@ -90,22 +88,22 @@ public class ProductController {
         if (result == null) {
             return "/Response/notfound";
         }
-        if(q.equals("")){
+        if (q.equals("")) {
             productDTOList = productService.findAll(page);
             pageDTO = productService.pagingParam(page);
-        }else {
-            productDTOList = productService.search(page,type,q);
-            pageDTO = productService.pagingSearchParam(page,type,q);
+        } else {
+            productDTOList = productService.search(page, type, q);
+            pageDTO = productService.pagingSearchParam(page, type, q);
         }
         model.addAttribute("list", product_categoryDTOList);
-        model.addAttribute("productDTOList",productDTOList);
-        model.addAttribute("paging",pageDTO);
-        model.addAttribute("q",q);
-        model.addAttribute("type",type);
+        model.addAttribute("productDTOList", productDTOList);
+        model.addAttribute("paging", pageDTO);
+        model.addAttribute("q", q);
+        model.addAttribute("type", type);
         return "/ProductPages/ProductList";
     }
 
-//     상품리스트 상세이동
+    //     상품리스트 상세이동
     @GetMapping("/product/productList")
     public String productList(@RequestParam("category_id") Long category_id, Model model) {
         List<Product_categoryDTO> product_categoryDTOAllList = product_category_service.findAllCategory();
@@ -114,24 +112,28 @@ public class ProductController {
         model.addAttribute("productDTOList", productDTOList);
         return "/ProductPages/ProductList";
     }
+
     @GetMapping("/product/productDetail")
-    public String productDetail(@RequestParam("product_id")Long id,Model model){
+    public String productDetail(@RequestParam("product_id") Long id, Model model) {
         ProductDTO productDTO = productService.findDTO(id);
-        model.addAttribute("productDTO",productDTO);
+        model.addAttribute("productDTO", productDTO);
         List<Product_imageDTO> product_imageDTOList = productService.findFile(id);
-        if(product_imageDTOList==null){
-            model.addAttribute("imageDTO",null);
+        if (product_imageDTOList == null) {
+            model.addAttribute("imageDTO", null);
         }
-        model.addAttribute("imageDTO",product_imageDTOList);
+        model.addAttribute("imageDTO", product_imageDTOList);
+        SellerDTO sellerDTO = sellerService.findByIdSeller(productDTO.getSeller_id());
+        model.addAttribute("sellerDTO", sellerDTO);
         Product_option1DTO product_option1DTO = productService.findOption1(productDTO.getProduct_id());
 //        Product_option2DTO product_option2DTO = productService.findOption2(product_option1DTO.getOption_id());
-        model.addAttribute("option1",product_option1DTO);
+        model.addAttribute("option1", product_option1DTO);
 //        if(product_option2DTO != null) {
 //            model.addAttribute("option2",product_option2DTO);
 //        }
-
-
+        List<ReviewDTO> reviewDTOList = reviewService.productReviewAll(productDTO.getProduct_id());
+        model.addAttribute("reviewDTOList",reviewDTOList);
         return "/ProductPages/ProductDetail";
     }
+
 
 }
