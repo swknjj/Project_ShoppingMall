@@ -132,6 +132,9 @@ public class ProductController {
 //        }
         List<ReviewDTO> reviewDTOList = reviewService.productReviewAll(productDTO.getProduct_id());
         model.addAttribute("reviewDTOList",reviewDTOList);
+
+        int count = reviewService.findProductReviewCount(productDTO.getProduct_id());
+        model.addAttribute("reviewCount",count);
         return "/ProductPages/ProductDetail";
     }
 

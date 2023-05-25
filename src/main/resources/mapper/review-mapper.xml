@@ -12,4 +12,8 @@
     <select id="productReviewAll" parameterType="Long" resultType="review">
         select * from review_table where product_id = #{product_id} order by review_id desc
     </select>
+
+    <select id="findProductReviewCount" parameterType="Long" resultType="Integer">
+        select count(product_id) from review_table where product_id = #{product_id}
+    </select>
 </mapper>

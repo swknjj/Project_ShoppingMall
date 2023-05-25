@@ -129,7 +129,7 @@
             <a class="nav-link" aria-current="page" href="#product-info">상품정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#product-review">리뷰</a>
+            <a class="nav-link" href="#product-review">리뷰<span id="nav_count" style="color: violet">${reviewCount}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#product-inquiry">문의</a>
@@ -198,7 +198,7 @@
     </div>
     <div id="product-review">
         <div class="d-flex justify-content-between">
-            <div><strong>리뷰</strong>&nbsp;리뷰숫자</div>
+            <div><strong>리뷰</strong>&nbsp;${reviewCount}개</div>
             <div><a href="#" onclick="openAddressSelectionModal()">리뷰 쓰기</a></div>
         </div>
         <div id="result-area">

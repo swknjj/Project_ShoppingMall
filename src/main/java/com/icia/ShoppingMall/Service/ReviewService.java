@@ -31,4 +31,9 @@ public class ReviewService {
         List<ReviewDTO> reviewDTOList = reviewRepository.productReviewAll(product_id);
         return reviewDTOList;
     }
+
+    public int findProductReviewCount(Long product_id) {
+        int count = reviewRepository.findProductReviewCount(product_id);
+        return count;
+    }
 }
