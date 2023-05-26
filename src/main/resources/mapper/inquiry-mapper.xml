@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Inquiry">
+    <select id="findByProductInquiryList" parameterType="Long" resultType="inquiry">
+        select * from inquiry_table where product_id = #{product_id}
+    </select>
+
+    <select id="findByProductInquiryCount" parameterType="Long" resultType="Int">
+        select count(product_id) from inquiry_table where product_id = #{product_id}
+    </select>
+
+    <insert id="inquirySave" parameterType="inquiry">
+        insert into inquiry_table (user_id,product_id,seller_id,is_buy,is_private,category,content)
+            values (#{user_id},#{product_id},#{seller_id},#{is_buy},#{is_private},#{category},#{content})
+    </insert>
+</mapper>

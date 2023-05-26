@@ -13,5 +13,9 @@
         select * from order_table where user_id = #{user_id}
     </select>
 
+    <select id="is_buy" parameterType="Map" resultType="inquiry">
+        select * from order_table where product_id = #{product_id} and user_id = #{user_id}
+    </select>
+
 
 </mapper>

@@ -26,6 +26,8 @@ public class ProductController {
     private Product_Category_Service product_category_service;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private InquiryService inquiryService;
 
     // 상품등록 페이지로 이동
     @GetMapping("/product/productSave")
@@ -114,7 +116,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/productDetail")
-    public String productDetail(@RequestParam("product_id") Long id, Model model) {
+    public String productDetail(@RequestParam("product_id") Long id, Model model,HttpSession session) {
         ProductDTO productDTO = productService.findDTO(id);
         model.addAttribute("productDTO", productDTO);
         List<Product_imageDTO> product_imageDTOList = productService.findFile(id);
@@ -133,8 +135,18 @@ public class ProductController {
         List<ReviewDTO> reviewDTOList = reviewService.productReviewAll(productDTO.getProduct_id());
         model.addAttribute("reviewDTOList",reviewDTOList);
 
-        int count = reviewService.findProductReviewCount(productDTO.getProduct_id());
-        model.addAttribute("reviewCount",count);
+        int count_review = reviewService.findProductReviewCount(productDTO.getProduct_id());
+        model.addAttribute("reviewCount",count_review);
+
+        List<InquiryDTO> inquiryDTOList = inquiryService.findByProductInquiryList(productDTO.getProduct_id());
+        model.addAttribute("inquiryDTOList",inquiryDTOList);
+
+        int count_inquiry = inquiryService.findByProductInquiryCount(productDTO.getProduct_id());
+        model.addAttribute("inquiryCount",count_inquiry);
+
+        String nickname = (String) session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        model.addAttribute("userDTO",userDTO);
         return "/ProductPages/ProductDetail";
     }
 

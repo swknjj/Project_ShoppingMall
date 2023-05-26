@@ -123,16 +123,18 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container md-3">
     <ul class="nav nav-pills justify-content-center">
         <li class="nav-item">
             <a class="nav-link" aria-current="page" href="#product-info">상품정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#product-review">리뷰<span id="nav_count" style="color: violet">${reviewCount}</span></a>
+            <a class="nav-link" href="#product-review">리뷰<span id="nav_count_review"
+                                                               style="color: violet">${reviewCount}</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#product-inquiry">문의</a>
+            <a class="nav-link" href="#product-inquiry">문의<span id="nav_count_inquiry"
+                                                                style="color: violet">${inquiryCount}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#product-shipping">배송</a>
@@ -177,13 +179,53 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" onclick="ajaxSelect()">작성하기</button>
+                <button type="button" class="btn btn-primary" onclick="ajaxSelectReview()">작성하기</button>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container">
+<div class="modal fade" id="inquiryModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="InquiryModalLabel">문의하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <strong>문의내용</strong>
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" id="secret">
+                    <label style="display: inline" for="secret">비밀글로 등록하기</label>
+                    <label for="inquiry-select-category" class="form-label">카테고리 선택</label>
+                    <select id="inquiry-select-category" class="form-select">
+                        <option value="" selected disabled hidden>선택해주세요</option>
+                        <option value="${option1.content}">${option1.content}&nbsp;
+                            ${option1.price}원&nbsp;
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="inquiry-content" class="form-label">문의 내용 작성</label>
+                    <textarea class="form-control" id="inquiry-content"
+                              placeholder="문의내용을 작성해주세요"></textarea>
+                </div>
+                <ul>
+                    <li>
+                        <span style="color: red">상품내용과 상관없는 경우</span>에는 경고 없이 삭제될 수 있습니다.
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="ajaxSelectInquiry()">작성하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container md-3">
     <div id="info">
         ${productDTO.product_detail}
     </div>
@@ -199,9 +241,9 @@
     <div id="product-review">
         <div class="d-flex justify-content-between">
             <div><strong>리뷰</strong>&nbsp;<span id="review-count" style="color:violet;">${reviewCount}</span></div>
-            <div><a href="#" onclick="openAddressSelectionModal()">리뷰 쓰기</a></div>
+            <div><a href="#" onclick="openReviewSelectionModal()">리뷰 쓰기</a></div>
         </div>
-        <div id="result-area">
+        <div id="review-result-area">
             <c:choose>
                 <c:when test="${reviewDTOList.size()==0}">
                     <p>리뷰가 없습니다</p>
@@ -211,17 +253,63 @@
                         <div class="container" style="border: 1px solid black">
                             <div class='mb-2'>별점 : ${review.rating}</div>
                             <div class='mb-2'>
-                                <img src="${pageContext.request.contextPath}/upload/${review.storedFileName}" alt="이미지" width="100px" height="100px"></div>
+                                <img src="${pageContext.request.contextPath}/upload/${review.storedFileName}" alt="이미지"
+                                     width="100px" height="100px"></div>
                             <div class="mb-2">${review.content}</div>
                             <div class="mb-2">작성시간 : ${review.created_at}</div>
                         </div>
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
-
         </div>
     </div>
+    <div id="product-inquiry" class="container md-3">
+        <div class="d-flex justify-content-between">
+            <div><strong>문의</strong>&nbsp;<span id="inquiry-count" style="color:violet;">${inquiryCount}</span></div>
+            <div><a href="#" onclick="openInquirySelectionModal()">문의하기</a></div>
+        </div>
+        <div id="inquiry-result-area">
+            <c:choose>
+                <c:when test="${inquiryDTOList.size()==0}">
+                    <p>문의가 없습니다</p>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${inquiryDTOList}" var="inquiry">
+                        <div class="container" style="border: 1px solid black">
+                            <c:choose>
+                                <c:when test="${inquiry.is_private == 'true'}">
+                                    <c:choose>
+                                        <c:when test="${user_id == inquiry.user_id}">
+                                            <div class='mb-2'>구매여부:
+                                                <c:choose>
+                                                    <c:when test="${inquiry.is_buy == 'true'}">구매O</c:when>
+                                                    <c:otherwise>구매X</c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <div class='mb-2'>카테고리: ${inquiry.category}</div>
+                                            <div class='mb-2'>${inquiry.content}</div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class='mb-2'>비밀글입니다. 쓴 유저만 확인 가능합니다.</div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class='mb-2'>카테고리: ${inquiry.category}</div>
+                                    <div class='mb-2'>${inquiry.content}</div>
+                                    <div class='mb-2'>${inquiry.created_at}</div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+
+
 </div>
+
 
 <%@include file="/WEB-INF/views/component/footer.jsp" %>
 </body>
@@ -234,6 +322,7 @@
     let price = ${option1.price};
     let count_rating = document.getElementById("rating-cnt").innerText;
     let count_rating_text = document.getElementById("rating-cnt");
+
     const typechange = () => {
         product.style.display = "block";
         document.getElementById("count").value = 1;
@@ -282,7 +371,7 @@
         }
     };
 
-    function openAddressSelectionModal() {
+    function openReviewSelectionModal() {
         $('#reviewModal').modal('show');
     }
 
@@ -292,15 +381,15 @@
     fileInput.addEventListener("change", function (event) {
         selectedFile = event.target.files[0];
     });
-    const ajaxSelect = () => {
+    const ajaxSelectReview = () => {
         $('#reviewModal').modal('hide');
         const review_cnt = document.getElementById("rating-cnt").innerText;
         const review_content = document.getElementById("review-content").value;
-        const result_area = document.getElementById("result-area");
+        const result_area = document.getElementById("review-result-area");
         const contextPath = '<%= request.getContextPath() %>';
         const formData = new FormData();
-        if(selectedFile!=null){
-        formData.append("file", selectedFile);
+        if (selectedFile != null) {
+            formData.append("file", selectedFile);
         }
         formData.append("rating", review_cnt);
         formData.append("content", review_content);
@@ -331,7 +420,7 @@
                     result += "</div>";
                 }
                 result_area.innerHTML = result;
-                document.getElementById("nav_count").innerHTML = count;
+                document.getElementById("nav_count_review").innerHTML = count;
                 document.getElementById("review-count").innerHTML = count;
             },
             error: function (res) {
@@ -339,6 +428,73 @@
             }
         });
     }
+
+    function openInquirySelectionModal() {
+        $('#inquiryModal').modal('show');
+
+    }
+
+    const ajaxSelectInquiry = () => {
+        $('#inquiryModal').modal('hide');
+        const secret = document.getElementById("secret");
+        const booleanValue = secret.checked;
+        const category = document.getElementById("inquiry-select-category").value;
+        const content = document.getElementById("inquiry-content").value;
+
+        const formData = new FormData();
+        formData.append("product_id", ${productDTO.product_id});
+        formData.append("seller_id", ${sellerDTO.seller_id});
+        formData.append("user_id", ${userDTO.user_id});
+        formData.append("is_private", booleanValue);
+        formData.append("category", category);
+        formData.append("content", content);
+
+        $.ajax({
+            type: "POST",
+            url: "/inquiry-save",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (res) {
+                let count = res.count;
+                let inquiryDTOList = res.inquiryDTOList;
+                const user_id = res.user_id;
+                let result = "";
+                let result_area = document.getElementById("inquiry-result-area");
+                for (let i in inquiryDTOList) {
+                    result += "<div class='container' style='border: 1px solid black'>";
+                    if (inquiryDTOList[i].is_private == 'true') {
+                        if (user_id == inquiryDTOList[i].user_id) {
+                            result += "<div class='mb-2'>" + "구매여부: ";
+                            if (inquiryDTOList[i].is_buy == "true") {
+                                result += "구매O";
+                            } else {
+                                result += "구매X";
+                            }
+                            result += "</div>";
+                            result += "<div class='mb-2'>카테고리: " + inquiryDTOList[i].category + "</div>";
+                            result += "<div class='mb-2'>" + inquiryDTOList[i].content + "</div>";
+                        } else {
+                            result += "<div class='mb-2'>비밀글입니다. 쓴 유저만 확인 가능합니다.</div>";
+                        }
+                    } else {
+                        result += "<div class='mb-2'>카테고리: " + inquiryDTOList[i].category + "</div>";
+                        result += "<div class='mb-2'>" + inquiryDTOList[i].content + "</div>";
+                        result += "<div class='mb-2'>" + inquiryDTOList[i].created_at + "</div>";
+                    }
+                    result += "</div>";
+                }
+                result_area.innerHTML = result;
+                document.getElementById("nav_count_inquiry").innerHTML = count;
+                document.getElementById("inquiry-count").innerHTML = count;
+            },
+            error: function (res) {
+                alert("문의 오류");
+            }
+        });
+    }
+
 
 
 </script>
