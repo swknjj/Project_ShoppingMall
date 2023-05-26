@@ -16,9 +16,9 @@ public class ReviewDTO {
     Long product_id; // 상품아이디
     Long seller_id; // 판매자아이디/
     Long rating; // 별점
-    MultipartFile file;
+    MultipartFile file; // 파일옮기기용 컬럼
     String review_image; // 리뷰이미지
-    String storedFileName;
+    String storedFileName; // 변형이름
     String content; // 내용
     Long liked; // 도움이되요
     String status; // 상태(차단유무)

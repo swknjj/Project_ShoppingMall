@@ -299,7 +299,9 @@
         const result_area = document.getElementById("result-area");
         const contextPath = '<%= request.getContextPath() %>';
         const formData = new FormData();
+        if(selectedFile!=null){
         formData.append("file", selectedFile);
+        }
         formData.append("rating", review_cnt);
         formData.append("content", review_content);
         formData.append("product_id", `${productDTO.product_id}`);
@@ -313,28 +315,31 @@
             contentType: false,
             processData: false,
             success: function (res) {
-                    let count = res.count;
-                    let reviewDTOList = res.reviewDTOList;
-                    let result = "";
-                    for (let i in reviewDTOList) {
-                        result += "<div class='container' style='border: 1px solid black'>";
-                        result += "<div class='mb-2'>" + "별점: " + reviewDTOList[i].rating + "</div>";
-                        result += "<div class='mb-2'>";
+                let count = res.count;
+                let reviewDTOList = res.reviewDTOList;
+                let result = "";
+                for (let i in reviewDTOList) {
+                    result += "<div class='container' style='border: 1px solid black'>";
+                    result += "<div class='mb-2'>" + "별점: " + reviewDTOList[i].rating + "</div>";
+                    result += "<div class='mb-2'>";
+                    if (reviewDTOList[i].review_image != null) {
                         result += "<img src='" + contextPath + "/upload/" + reviewDTOList[i].storedFileName + "' alt='이미지' width='100px' height='100px'>";
-                        result += "</div>";
-                        result += "<div class='mb-2'>" + reviewDTOList[i].content + "</div>";
-                        result += "<div class='mb-2'>작성시간: " + reviewDTOList[i].created_at + "</div>";
-                        result += "</div>";
                     }
-                    result_area.innerHTML = result;
-                    document.getElementById("nav_count").innerHTML = count;
-                    document.getElementById("review-count").innerHTML = count;
+                    result += "</div>";
+                    result += "<div class='mb-2'>" + reviewDTOList[i].content + "</div>";
+                    result += "<div class='mb-2'>작성시간: " + reviewDTOList[i].created_at + "</div>";
+                    result += "</div>";
+                }
+                result_area.innerHTML = result;
+                document.getElementById("nav_count").innerHTML = count;
+                document.getElementById("review-count").innerHTML = count;
             },
             error: function (res) {
                 alert("댓글 오류");
             }
         });
-    };
+    }
+
 
 </script>
 </html>

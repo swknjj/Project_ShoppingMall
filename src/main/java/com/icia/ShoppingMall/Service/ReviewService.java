@@ -27,6 +27,7 @@ public class ReviewService {
         return dto;
     }
 
+
     public List<ReviewDTO> productReviewAll(Long product_id) {
         List<ReviewDTO> reviewDTOList = reviewRepository.productReviewAll(product_id);
         return reviewDTOList;
