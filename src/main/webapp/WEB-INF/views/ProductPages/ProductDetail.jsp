@@ -252,9 +252,12 @@
                     <c:forEach items="${reviewDTOList}" var="review">
                         <div class="container" style="border: 1px solid black">
                             <div class='mb-2'>별점 : ${review.rating}</div>
+                            <c:if test="${review.storedFileName != null}">
                             <div class='mb-2'>
                                 <img src="${pageContext.request.contextPath}/upload/${review.storedFileName}" alt="이미지"
-                                     width="100px" height="100px"></div>
+                                     width="100px" height="100px">
+                            </div>
+                            </c:if>
                             <div class="mb-2">${review.content}</div>
                             <div class="mb-2">작성시간 : ${review.created_at}</div>
                         </div>
@@ -263,7 +266,9 @@
             </c:choose>
         </div>
     </div>
-    <div id="product-inquiry" class="container md-3">
+</div>
+<div class="container md-3">
+    <div id="product-inquiry">
         <div class="d-flex justify-content-between">
             <div><strong>문의</strong>&nbsp;<span id="inquiry-count" style="color:violet;">${inquiryCount}</span></div>
             <div><a href="#" onclick="openInquirySelectionModal()">문의하기</a></div>
@@ -279,7 +284,7 @@
                             <c:choose>
                                 <c:when test="${inquiry.is_private == 'true'}">
                                     <c:choose>
-                                        <c:when test="${user_id == inquiry.user_id}">
+                                        <c:when test="${userDTO.user_id == inquiry.user_id}">
                                             <div class='mb-2'>구매여부:
                                                 <c:choose>
                                                     <c:when test="${inquiry.is_buy == 'true'}">구매O</c:when>
@@ -295,9 +300,16 @@
                                     </c:choose>
                                 </c:when>
                                 <c:otherwise>
+                                    <div class='mb-2'>구매여부:
+                                        <c:choose>
+                                            <c:when test="${inquiry.is_buy == 'true'}">구매O</c:when>
+                                            <c:otherwise>구매X</c:otherwise>
+                                        </c:choose>
+                                    </div>
                                     <div class='mb-2'>카테고리: ${inquiry.category}</div>
                                     <div class='mb-2'>${inquiry.content}</div>
                                     <div class='mb-2'>${inquiry.created_at}</div>
+
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -306,10 +318,7 @@
             </c:choose>
         </div>
     </div>
-
-
 </div>
-
 
 <%@include file="/WEB-INF/views/component/footer.jsp" %>
 </body>
@@ -462,33 +471,43 @@
                 const user_id = res.user_id;
                 let result = "";
                 let result_area = document.getElementById("inquiry-result-area");
-                for (let i in inquiryDTOList) {
-                    result += "<div class='container' style='border: 1px solid black'>";
-                    if (inquiryDTOList[i].is_private == 'true') {
-                        if (user_id == inquiryDTOList[i].user_id) {
-                            result += "<div class='mb-2'>" + "구매여부: ";
-                            if (inquiryDTOList[i].is_buy == "true") {
-                                result += "구매O";
+
+                if (inquiryDTOList.length === 0) {
+                    result = "<p>문의가 없습니다</p>";
+                } else {
+                    for (let i = 0; i < inquiryDTOList.length; i++) {
+                        let inquiry = inquiryDTOList[i];
+                        result += "<div class='container' style='border: 1px solid black'>";
+
+                        if (inquiry.is_private === 'true') {
+                            if (user_id === inquiry.user_id) {
+                                result += "<div class='mb-2'>구매여부: ";
+                                result += inquiry.is_buy === "true" ? "구매O" : "구매X";
+                                result += "</div>";
+                                result += "<div class='mb-2'>카테고리: " + inquiry.category + "</div>";
+                                result += "<div class='mb-2'>" + inquiry.content + "</div>";
+                                result += "<div class='mb-2'>" + inquiry.created_at + "</div>"
                             } else {
-                                result += "구매X";
+                                result += "<div class='mb-2'>비밀글입니다. 쓴 유저만 확인 가능합니다.</div>";
                             }
-                            result += "</div>";
-                            result += "<div class='mb-2'>카테고리: " + inquiryDTOList[i].category + "</div>";
-                            result += "<div class='mb-2'>" + inquiryDTOList[i].content + "</div>";
                         } else {
-                            result += "<div class='mb-2'>비밀글입니다. 쓴 유저만 확인 가능합니다.</div>";
+                            result += "<div class='mb-2'>구매여부: ";
+                            result += inquiry.is_buy === "true" ? "구매O" : "구매X";
+                            result += "</div>";
+                            result += "<div class='mb-2'>카테고리: " + inquiry.category + "</div>";
+                            result += "<div class='mb-2'>" + inquiry.content + "</div>";
+                            result += "<div class='mb-2'>" + inquiry.created_at + "</div>";
                         }
-                    } else {
-                        result += "<div class='mb-2'>카테고리: " + inquiryDTOList[i].category + "</div>";
-                        result += "<div class='mb-2'>" + inquiryDTOList[i].content + "</div>";
-                        result += "<div class='mb-2'>" + inquiryDTOList[i].created_at + "</div>";
+
+                        result += "</div>";
                     }
-                    result += "</div>";
                 }
+
                 result_area.innerHTML = result;
                 document.getElementById("nav_count_inquiry").innerHTML = count;
                 document.getElementById("inquiry-count").innerHTML = count;
             },
+
             error: function (res) {
                 alert("문의 오류");
             }
