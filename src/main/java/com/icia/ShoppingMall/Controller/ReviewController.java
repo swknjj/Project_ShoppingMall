@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ReviewController {
@@ -29,12 +31,13 @@ public class ReviewController {
         reviewDTO.setUser_id(userDTO.getUser_id());
         ReviewDTO dto = reviewService.reviewSave(reviewDTO);
         List<ReviewDTO> reviewDTOList = reviewService.productReviewAll(dto.getProduct_id());
-        for(int i=0; i<reviewDTOList.size(); i++){
-            System.out.println(reviewDTOList.get(i));
-        }
+        int count = reviewService.findProductReviewCount(dto.getProduct_id());
         if(dto==null){
             return new ResponseEntity<>(reviewDTOList,HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(reviewDTOList, HttpStatus.OK);
+        Map<String,Object> reviewDetail = new HashMap<>();
+        reviewDetail.put("count",count);
+        reviewDetail.put("reviewDTOList",reviewDTOList);
+        return new ResponseEntity<>(reviewDetail, HttpStatus.OK);
     }
 }

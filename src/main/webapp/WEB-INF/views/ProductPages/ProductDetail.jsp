@@ -198,7 +198,7 @@
     </div>
     <div id="product-review">
         <div class="d-flex justify-content-between">
-            <div><strong>리뷰</strong>&nbsp;${reviewCount}개</div>
+            <div><strong>리뷰</strong>&nbsp;<span id="review-count" style="color:violet;">${reviewCount}</span></div>
             <div><a href="#" onclick="openAddressSelectionModal()">리뷰 쓰기</a></div>
         </div>
         <div id="result-area">
@@ -313,18 +313,22 @@
             contentType: false,
             processData: false,
             success: function (res) {
+                    let count = res.count;
+                    let reviewDTOList = res.reviewDTOList;
                     let result = "";
-                    for (let i in res) {
+                    for (let i in reviewDTOList) {
                         result += "<div class='container' style='border: 1px solid black'>";
-                        result += "<div class='mb-2'>" + "별점: " + res[i].rating + "</div>";
+                        result += "<div class='mb-2'>" + "별점: " + reviewDTOList[i].rating + "</div>";
                         result += "<div class='mb-2'>";
-                        result += "<img src='" + contextPath + "/upload/" + res[i].storedFileName + "' alt='이미지' width='100px' height='100px'>";
+                        result += "<img src='" + contextPath + "/upload/" + reviewDTOList[i].storedFileName + "' alt='이미지' width='100px' height='100px'>";
                         result += "</div>";
-                        result += "<div class='mb-2'>" + res[i].content + "</div>";
-                        result += "<div class='mb-2'>작성시간: " + res[i].created_at + "</div>";
+                        result += "<div class='mb-2'>" + reviewDTOList[i].content + "</div>";
+                        result += "<div class='mb-2'>작성시간: " + reviewDTOList[i].created_at + "</div>";
                         result += "</div>";
                     }
                     result_area.innerHTML = result;
+                    document.getElementById("nav_count").innerHTML = count;
+                    document.getElementById("review-count").innerHTML = count;
             },
             error: function (res) {
                 alert("댓글 오류");
