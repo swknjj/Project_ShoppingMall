@@ -40,13 +40,13 @@
 <div class="container">
     <div class="row">
         <div class="col" style="height: 500px;">
-            <c:if test="${!empty productDTO.storedFileName}">
+            <c:if test="${!empty productDTO.image}">
                 <div style="width: 300px; height: 300px">
                     <img src="${pageContext.request.contextPath}/upload/${productDTO.storedFileName}" alt=""
                          width="100%" height="100%"><br>
                 </div>
             </c:if>
-            <c:if test="${empty productDTO.storedFileName}">
+            <c:if test="${empty productDTO.image}">
                 <div style="width: 300px; height: 300px">
                     <img src="/resources/img/다운로드.png" alt=""
                          width="100%" height="100%"><br>
