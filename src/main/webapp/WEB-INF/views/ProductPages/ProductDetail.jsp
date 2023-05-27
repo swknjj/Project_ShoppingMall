@@ -498,23 +498,17 @@
                             result += "<div class='mb-2'>" + inquiry.content + "</div>";
                             result += "<div class='mb-2'>" + inquiry.created_at + "</div>";
                         }
-
                         result += "</div>";
                     }
                 }
-
                 result_area.innerHTML = result;
                 document.getElementById("nav_count_inquiry").innerHTML = count;
                 document.getElementById("inquiry-count").innerHTML = count;
             },
-
             error: function (res) {
                 alert("문의 오류");
             }
         });
     }
-
-
-
 </script>
 </html>

@@ -150,5 +150,11 @@ public class ProductController {
         return "/ProductPages/ProductDetail";
     }
 
+    // 상품 삭제
+    @GetMapping("/product/delete")
+    public String productDelete(@RequestParam("product_id")Long product_id) {
+        System.out.println(product_id);
+        return "redirect:/";
+    }
 
 }
