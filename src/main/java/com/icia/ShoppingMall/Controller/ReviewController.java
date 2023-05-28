@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -40,4 +42,16 @@ public class ReviewController {
         reviewDetail.put("reviewDTOList",reviewDTOList);
         return new ResponseEntity<>(reviewDetail, HttpStatus.OK);
     }
+
+    // 리뷰 목록으로
+    @GetMapping("/review/reviewList")
+    public String reviewListForm(HttpSession session, Model model) {
+        String nickname = (String) session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        List<ReviewDTO> reviewDTOList = reviewService.userReviewAll(userDTO.getUser_id());
+        model.addAttribute("reviewDTOList",reviewDTOList);
+        return "/ReviewPages/ReviewList";
+
+    }
+
 }

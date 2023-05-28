@@ -24,4 +24,8 @@ public class ReviewRepository {
     public int findProductReviewCount(Long product_id) {
         return sql.selectOne("Review.findProductReviewCount",product_id);
     }
+
+    public List<ReviewDTO> userReviewAll(Long user_id) {
+        return sql.selectList("Review.userReviewAll",user_id);
+    }
 }
