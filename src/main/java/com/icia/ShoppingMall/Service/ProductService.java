@@ -158,4 +158,7 @@ public class ProductService {
     }
 
 
+    public void deleteProduct(Long product_id) {
+        productRepository.deleteProduct(product_id);
+    }
 }

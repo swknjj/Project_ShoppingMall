@@ -73,4 +73,7 @@ public class ProductRepository {
     }
 
 
+    public void deleteProduct(Long product_id) {
+        sql.delete("Product.deleteProduct",product_id);
+    }
 }
