@@ -164,4 +164,13 @@ public class ProductController {
             return "redirect:/";
         }
     }
+    @GetMapping("/user/productList")
+    public String userProductList(HttpSession session,Model model) {
+        String nickname = (String) session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        SellerDTO sellerDTO = sellerService.findBySeller(userDTO.getUser_id());
+        List<ProductDTO> productDTOList = productService.userProductList(sellerDTO.getSeller_id());
+        model.addAttribute("productDTOList",productDTOList);
+        return "/UserPages/UserDetail/UserProductList";
+    }
 }

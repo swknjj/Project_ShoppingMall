@@ -161,4 +161,9 @@ public class ProductService {
     public void deleteProduct(Long product_id) {
         productRepository.deleteProduct(product_id);
     }
+
+    public List<ProductDTO> userProductList(Long seller_id) {
+        List<ProductDTO> productDTOList = productRepository.userProductList(seller_id);
+        return productDTOList;
+    }
 }

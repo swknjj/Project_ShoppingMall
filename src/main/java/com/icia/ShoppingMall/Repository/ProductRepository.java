@@ -76,4 +76,8 @@ public class ProductRepository {
     public void deleteProduct(Long product_id) {
         sql.delete("Product.deleteProduct",product_id);
     }
+
+    public List<ProductDTO> userProductList(Long seller_id) {
+        return sql.selectList("Product.userProductList",seller_id);
+    }
 }

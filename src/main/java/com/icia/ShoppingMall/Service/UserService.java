@@ -1,5 +1,6 @@
 package com.icia.ShoppingMall.Service;
 
+import com.icia.ShoppingMall.DTO.SellerDTO;
 import com.icia.ShoppingMall.DTO.UserDTO;
 import com.icia.ShoppingMall.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class UserService {
 
     public void userDelete(Long id) {
         userRepository.userDelete(id);
+    }
+
+    public SellerDTO findBySellerDTO(Long user_id) {
+        return userRepository.findBySellerDTO(user_id);
     }
 }

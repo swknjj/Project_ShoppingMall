@@ -51,7 +51,7 @@
                 <h4 id="nickname-bottom"></h4>
                 <label for="birth"><h4>생년월일 *필수항목</h4></label><br>
                 <input type="text" class="form-control" id="birth" name="birth" onblur="birth_check()"
-                       placeholder="- 제외">
+                       value="${userDTO.birth}">
                 <h4 id="birth-bottom"></h4>
                 <input type="submit" class="btn btn-primary" value="수정하기">
             </form>

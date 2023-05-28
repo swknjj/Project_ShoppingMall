@@ -50,7 +50,7 @@ public class ReviewController {
         UserDTO userDTO = userService.findByNickname(nickname);
         List<ReviewDTO> reviewDTOList = reviewService.userReviewAll(userDTO.getUser_id());
         model.addAttribute("reviewDTOList",reviewDTOList);
-        return "/ReviewPages/ReviewList";
+        return "/UserPages/UserDetail/UserReviewList";
 
     }
 

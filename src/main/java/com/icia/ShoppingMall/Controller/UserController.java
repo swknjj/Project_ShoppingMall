@@ -2,6 +2,7 @@ package com.icia.ShoppingMall.Controller;
 
 import java.util.*;
 
+import com.icia.ShoppingMall.DTO.SellerDTO;
 import com.icia.ShoppingMall.DTO.UserDTO;
 import com.icia.ShoppingMall.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,6 +129,12 @@ public class UserController {
         String nickname = (String)session.getAttribute("nickname");
         UserDTO userDTO = userService.findByNickname(nickname);
         model.addAttribute("userDTO",userDTO);
+        SellerDTO sellerDTO = userService.findBySellerDTO(userDTO.getUser_id());
+        if(sellerDTO==null) {
+            model.addAttribute("sellerDTO",null);
+        }else {
+            model.addAttribute("sellerDTO",sellerDTO);
+        }
         return "/UserPages/UserDetail/UserDetail";
     }
     // 유저 설정(업데이트)

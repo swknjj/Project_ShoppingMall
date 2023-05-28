@@ -1,5 +1,6 @@
 package com.icia.ShoppingMall.Repository;
 
+import com.icia.ShoppingMall.DTO.SellerDTO;
 import com.icia.ShoppingMall.DTO.UserDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,9 @@ public class UserRepository {
 
     public void userDelete(Long id) {
         sql.delete("User.userDelete",id);
+    }
+
+    public SellerDTO findBySellerDTO(Long user_id) {
+        return sql.selectOne("User.findBySellerDTO",user_id);
     }
 }

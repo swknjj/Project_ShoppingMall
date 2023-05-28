@@ -33,7 +33,7 @@
             </li>
         </ul>
     </div>
-    <div id="container" style="display: none">
+    <div id="container" style="display: none; overflow-y: scroll" >
         <table class="table table-dark table-striped">
             <tr>
                 <th>주문번호</th>
