@@ -57,9 +57,9 @@
             <p><a href="#">${productDTO.brand}</a></p>
             <h2>${productDTO.title}</h2>
             <c:if test="${productDTO.rating_sum!=null}">
-                <p>별점 : ${productDTO.rating_sum}</p>
+                <p>별점 평균 : ${productDTO.rating_sum}</p>
             </c:if>
-            <c:if test="${productDTO.rating_cnt}">
+            <c:if test="${productDTO.rating_cnt!=null}">
                 <p>별점 개수 : ${productDTO.rating_cnt}</p>
             </c:if>
             <c:choose>
@@ -252,9 +252,12 @@
                     <c:forEach items="${reviewDTOList}" var="review">
                         <div class="container" style="border: 1px solid black">
                             <div class='mb-2'>별점 : ${review.rating}</div>
-                            <div class='mb-2'>
-                                <img src="${pageContext.request.contextPath}/upload/${review.storedFileName}" alt="이미지"
-                                     width="100px" height="100px"></div>
+                            <c:if test="${review.storedFileName != null}">
+                                <div class='mb-2'>
+                                    <img src="${pageContext.request.contextPath}/upload/${review.storedFileName}" alt="이미지"
+                                         width="100px" height="100px">
+                                </div>
+                            </c:if>
                             <div class="mb-2">${review.content}</div>
                             <div class="mb-2">작성시간 : ${review.created_at}</div>
                         </div>
@@ -424,7 +427,7 @@
                 document.getElementById("review-count").innerHTML = count;
             },
             error: function (res) {
-                alert("댓글 오류");
+                alert("리뷰 오류");
             }
         });
     }

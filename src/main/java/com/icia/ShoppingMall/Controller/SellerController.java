@@ -32,7 +32,7 @@ public class SellerController {
             return "/Response/nullPointSellerDTO";
         }
         return "redirect:/seller/detail";
-    }
+    } //
 
     // 판매자 등록 페이지로 이동
     @GetMapping("/seller/save")
@@ -41,7 +41,7 @@ public class SellerController {
         UserDTO userDTO = userService.findByNickname(nickname);
         model.addAttribute("userDTO",userDTO);
         return "/SellerPages/SellerSave";
-    }
+    } //
 
     // 사업자등록번호 중복체크 ajax
     @PostMapping("/seller/num_check")
@@ -52,13 +52,13 @@ public class SellerController {
         }else {
             return new ResponseEntity<>(sellerDTO,HttpStatus.CONFLICT);
         }
-    }
+    } //
     // 판매자 등록 쿼리
     @PostMapping("/seller/save")
     public String sellerSave(@ModelAttribute SellerDTO sellerDTO) {
         sellerService.sellerSave(sellerDTO);
         return "redirect:/";
-    }
+    } //
     // 본인 판매자 정보 확인
     @GetMapping("/seller/detail")
     public String sellerDetailForm(HttpSession session,Model model) {
@@ -71,7 +71,7 @@ public class SellerController {
             model.addAttribute("sellerDTO",sellerDTO);
             return "/SellerPages/SellerDetail/SellerDetail";
         }
-    }
+    } //
     // 판매자정보 수정 화면
     @GetMapping("/seller/update")
     public String sellerUpdateForm(HttpSession session,Model model) {
@@ -84,14 +84,14 @@ public class SellerController {
             model.addAttribute("sellerDTO",sellerDTO);
             return "/SellerPages/SellerDetail/SellerUpdate";
         }
-    }
+    } //
 
     // 판매자정보 수정 쿼리
     @PostMapping("/seller/update")
     public String sellerUpdate(@ModelAttribute SellerDTO sellerDTO) {
         sellerService.sellerUpdate(sellerDTO);
         return "redirect:/";
-    }
+    } //
 
     // 판매자 삭제 쿼리
     @GetMapping("/seller/delete")

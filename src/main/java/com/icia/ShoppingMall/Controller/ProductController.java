@@ -115,6 +115,8 @@ public class ProductController {
         return "/ProductPages/ProductList";
     }
 
+    // 상품디테일
+
     @GetMapping("/product/productDetail")
     public String productDetail(@RequestParam("product_id") Long id, Model model,HttpSession session) {
         ProductDTO productDTO = productService.findDTO(id);

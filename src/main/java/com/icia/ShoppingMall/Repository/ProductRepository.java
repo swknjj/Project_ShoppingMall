@@ -73,4 +73,7 @@ public class ProductRepository {
     }
 
 
+    public void updateCntandAvg(Map<String, Object> reviewResult) {
+        sql.update("Product.updateCntandAvg",reviewResult);
+    }
 }
