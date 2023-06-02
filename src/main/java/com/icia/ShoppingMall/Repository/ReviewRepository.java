@@ -24,4 +24,8 @@ public class ReviewRepository {
     public int findProductReviewCount(Long product_id) {
         return sql.selectOne("Review.findProductReviewCount",product_id);
     }
+
+    public Long findProductReviewAvg(Long product_id) {
+        return sql.selectOne("Review.findProductReviewAvg",product_id);
+    }
 }
