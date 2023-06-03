@@ -42,11 +42,10 @@
                     </div>
                     @
                     <div class="col">
-                        <input type="text" id="domain" class="form-control" id="email-form" readonly onblur="email_check()">
+                        <input type="text" id="domain" class="form-control" readonly onblur="email_check()">
                     </div>
                     <div class="col">
-                        <select id="search-select" class="form-select" name="domain" onblur="email_check()"
-                                onchange="input_email()">
+                        <select id="search-select" class="form-select" name="domain" onchange="input_email()" onblur="email_check()">
                             <option value="" selected disabled hidden>선택해주세요</option>
                             <option value="daum.net">daum.net</option>
                             <option value="naver.com">naver.com</option>
