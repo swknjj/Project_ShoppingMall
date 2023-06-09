@@ -28,4 +28,8 @@ public class ReviewRepository {
     public List<ReviewDTO> userReviewAll(Long user_id) {
         return sql.selectList("Review.userReviewAll",user_id);
     }
+
+    public Long findProductReviewAvg(Long product_id) {
+        return sql.selectOne("Review.findProductReviewAvg",product_id);
+    }
 }

@@ -80,4 +80,8 @@ public class ProductRepository {
     public List<ProductDTO> userProductList(Long seller_id) {
         return sql.selectList("Product.userProductList",seller_id);
     }
+
+    public void updateCntandAvg(Map<String, Object> reviewResult) {
+        sql.update("Product.updateCntandAvg",reviewResult);
+    }
 }

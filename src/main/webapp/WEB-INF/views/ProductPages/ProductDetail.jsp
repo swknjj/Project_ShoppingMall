@@ -56,10 +56,10 @@
         <div class="col">
             <p><a href="#">${productDTO.brand}</a></p>
             <h2>${productDTO.title}</h2>
-            <c:if test="${productDTO.rating_sum!=null}">
+            <c:if test="${!empty productDTO.rating_sum}">
                 <p>별점 : ${productDTO.rating_sum}</p>
             </c:if>
-            <c:if test="${productDTO.rating_cnt}">
+            <c:if test="${!empty productDTO.rating_cnt}">
                 <p>별점 개수 : ${productDTO.rating_cnt}</p>
             </c:if>
             <c:choose>

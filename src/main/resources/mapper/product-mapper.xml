@@ -71,5 +71,9 @@
         select * from product_table where seller_id = #{seller_id}
     </select>
 
+    <update id="updateCntandAvg" parameterType="HashMap">
+        update product_table set rating_cnt = #{product_cnt} , rating_avg = ${product_avg} where product_id = #{product_id}
+    </update>
+
 </mapper>
 
