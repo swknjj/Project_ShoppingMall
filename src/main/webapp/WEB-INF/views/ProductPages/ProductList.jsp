@@ -22,12 +22,13 @@
         .container2 {
             background-color: lightgray;
         }
-         #search {
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             height: auto;
-         }
+
+        #search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
     </style>
 </head>
 
@@ -60,24 +61,31 @@
             <c:forEach items="${productDTOList}" var="DTOList">
                 <div class="col-4" style="width: 30%; height: 30%">
                     <a href="/product/productDetail?product_id=${DTOList.product_id}">
-                    <c:if test="${!empty DTOList.image}">
-                        <div style="width: 300px; height: 300px">
-                            <img src="${pageContext.request.contextPath}/upload/${DTOList.storedFileName}" alt=""
-                                 width="100%" height="100%"><br>
+                        <c:if test="${!empty DTOList.image}">
+                            <div style="width: 300px; height: 300px">
+                                <img src="${pageContext.request.contextPath}/upload/${DTOList.storedFileName}" alt=""
+                                     width="100%" height="100%"><br>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty DTOList.image}">
+                            <div style="width: 300px; height: 300px">
+                                <img src="/resources/img/다운로드.png" alt=""
+                                     width="100%" height="100%"><br>
+                            </div>
+                        </c:if>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                브랜드 : ${DTOList.brand}<br>
+                            </div>
+                            <div>
+                                <a href="/product/delete?product_id=${DTOList.product_id}">상품삭제</a>
+                            </div>
                         </div>
-                    </c:if>
-                    <c:if test="${empty DTOList.image}">
-                        <div style="width: 300px; height: 300px">
-                            <img src="/resources/img/다운로드.png" alt=""
-                                 width="100%" height="100%"><br>
-                        </div>
-                    </c:if>
-                    브랜드 : ${DTOList.brand}<br>
-                    제품명 : ${DTOList.title}<br>
-                    가격 : ${DTOList.price}
-                    <c:if test="${DTOList.discount_rate != 0}">
-                        <br>할인 ${DTOList.discount_rate}%해서 ${DTOList.special_price}원!
-                    </c:if><br>
+                        제품명 : ${DTOList.title}<br>
+                        가격 : ${DTOList.price}
+                        <c:if test="${DTOList.discount_rate != 0}">
+                            <br>할인 ${DTOList.discount_rate}%해서 ${DTOList.special_price}원!
+                        </c:if><br>
                     </a>
                 </div>
             </c:forEach>
@@ -93,16 +101,16 @@
     <form action="/product/productListForm" method="get">
         <div class="row">
             <div class="col-5">
-        <select id="search-select" class="form-control" name="type">
-            <option value="brand">브랜드</option>
-            <option value="title">제품명</option>
-        </select>
+                <select id="search-select" class="form-control" name="type">
+                    <option value="brand">브랜드</option>
+                    <option value="title">제품명</option>
+                </select>
             </div>
             <div class="col-5">
-        <input type="text" id="search-box" class="form-control" name="q">
+                <input type="text" id="search-box" class="form-control" name="q">
             </div>
             <div class="col-2">
-        <input type="submit" class="form-control" value="검색">
+                <input type="submit" class="form-control" value="검색">
             </div>
         </div>
     </form>
@@ -120,7 +128,8 @@
             <c:otherwise>
                 <li class="page-item">
                     <a class="page-link"
-                       href="/product/productListForm?page=${paging.page-1}&q=${q}&type=${type}"><i class="bi bi-caret-left-fill"></i></a>
+                       href="/product/productListForm?page=${paging.page-1}&q=${q}&type=${type}"><i
+                            class="bi bi-caret-left-fill"></i></a>
                 </li>
             </c:otherwise>
         </c:choose>

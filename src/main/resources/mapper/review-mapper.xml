@@ -17,7 +17,7 @@
         select count(product_id) from review_table where product_id = #{product_id}
     </select>
 
-    <select id="findProductReviewAvg" parameterType="Long" resultType="Long">
-        select avg(rating) from review_table where product_id = #{product_id}
+    <select id="userReviewAll" parameterType="Long" resultType="review">
+        select * from review_table where user_id = #{user_id}
     </select>
 </mapper>

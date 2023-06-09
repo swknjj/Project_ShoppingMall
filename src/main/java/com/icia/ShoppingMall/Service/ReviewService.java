@@ -50,4 +50,9 @@ public class ReviewService {
         int count = reviewRepository.findProductReviewCount(product_id);
         return count;
     }
+
+    public List<ReviewDTO> userReviewAll(Long user_id) {
+        List<ReviewDTO> reviewDTOList = reviewRepository.userReviewAll(user_id);
+        return reviewDTOList;
+    }
 }

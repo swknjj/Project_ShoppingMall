@@ -53,4 +53,8 @@
         from user_table
         where user_id = #{id}
     </delete>
+
+    <select id="findBySellerDTO" parameterType="Long" resultType="seller">
+        select * from seller_table where user_id = #{user_id}
+    </select>
 </mapper>

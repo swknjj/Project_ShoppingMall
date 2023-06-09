@@ -25,33 +25,36 @@
     <a href="/" style="text-decoration-line: none">Our lovely home</a>
 </div>
 <div class="container2" style="margin: 0 auto; width: 100%; height: 70%">
-    <div id="user-orderlist" style="width: 80%; margin: 0 auto; height: auto; text-align: center;">
-        <h2 style="margin-top: 100px">내 주문목록</h2><br>
+    <div id="user-reviewlist" style="width: 80%; margin: 0 auto; height: auto; text-align: center;">
+        <h2 style="margin-top: 100px">내 리뷰목록</h2><br>
         <ul class="nav" style="text-align: center; display: flex; justify-content: center;">
             <li class="nav-item" id="button">
-                <button class="btn btn-primary" onclick="sellerInterface()">내 주문목록 확인하기</button>
+                <button class="btn btn-primary" onclick="sellerInterface()">내 리뷰목록 확인하기</button>
             </li>
         </ul>
     </div>
     <div id="container" style="display: none; overflow-y: scroll" >
         <table class="table table-dark table-striped">
             <tr>
-                <th>주문번호</th>
                 <th>상품번호</th>
-                <th>수량</th>
-                <th>총 가격</th>
-                <th>주문시간</th>
-                <th>메모</th>
+                <th>상품판매자번호</th>
+                <th>별점</th>
+                <th>리뷰이미지</th>
+                <th>리뷰내용</th>
+                <th>리뷰추천</th>
+                <th>리뷰작성시간</th>
             </tr>
-            <c:forEach items="${orderDTO}" var="order">
-            <tr>
-                <td>${order.order_id}</td>
-                <td><a href="/product/productDetail?product_id=${order.product_id}">${order.product_id}</a></td>
-                <td>${order.quantity}</td>
-                <td>${order.totalPrice}</td>
-                <td>${order.created_at}</td>
-                <td>${order.memo}</td>
-            </tr>
+            <c:forEach items="${reviewDTOList}" var="review">
+                <tr>
+                    <td><a href="/product/productDetail?product_id=${review.product_id}">${review.product_id}</a></td>
+                    <td>${review.seller_id}</td>
+                    <td>${review.rating}</td>
+                    <td><img src="${pageContext.request.contextPath}/upload/${review.storedFileName}" alt="이미지"
+                             width="100px" height="100px"></td>
+                    <td>${review.content}</td>
+                    <td>${review.liked}</td>
+                    <td>${review.created_at}</td>
+                </tr>
             </c:forEach>
         </table>
         <button class="btn btn-dark" onclick="closeData()">닫기</button>

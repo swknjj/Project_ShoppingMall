@@ -63,9 +63,13 @@
         select * from product_table where product_id = #{product_id}
     </select>
 
-    <update id="updateCntandAvg" parameterType="HashMap">
-        update product_table set rating_sum = #{product_avg} , rating_cnt = #{product_cnt} where product_id = #{product_id}
-    </update>
+    <delete id="deleteProduct" parameterType="Long">
+        delete from product_table where product_id = #{product_id}
+    </delete>
+
+    <select id="userProductList" parameterType="Long" resultType="product">
+        select * from product_table where seller_id = #{seller_id}
+    </select>
 
 </mapper>
 

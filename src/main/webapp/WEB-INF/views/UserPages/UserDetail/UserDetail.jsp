@@ -33,9 +33,11 @@
     <div id="mypage" style="width: 80%; margin: 0 auto; height: auto; text-align: center;">
         <h2 style="margin-top: 100px">My Page</h2><br>
         <ul class="nav" style="text-align: center">
+            <c:if test="${sellerDTO!=null}">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">프로필</a>
+                <a class="nav-link" href="/user/productList">나의 상품 목록</a>
             </li>
+            </c:if>
             <li class="nav-item">
                 <a class="nav-link" href="/order/orderList">나의 주문 목록</a>
             </li>

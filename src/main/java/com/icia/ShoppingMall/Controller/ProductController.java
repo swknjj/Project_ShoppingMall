@@ -152,5 +152,27 @@ public class ProductController {
         return "/ProductPages/ProductDetail";
     }
 
-
+    // 상품 삭제
+    @GetMapping("/product/delete")
+    public String productDelete(@RequestParam("product_id")Long product_id,HttpSession session) {
+        String nickname = (String) session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        ProductDTO productDTO = productService.findDTO(product_id);
+        SellerDTO sellerDTO = sellerService.findBySeller(userDTO.getUser_id());
+        if(sellerDTO==null || sellerDTO.getSeller_id()!=productDTO.getSeller_id()) {
+            return "/Response/notauthority";
+        }else {
+            productService.deleteProduct(product_id);
+            return "redirect:/";
+        }
+    }
+    @GetMapping("/user/productList")
+    public String userProductList(HttpSession session,Model model) {
+        String nickname = (String) session.getAttribute("nickname");
+        UserDTO userDTO = userService.findByNickname(nickname);
+        SellerDTO sellerDTO = sellerService.findBySeller(userDTO.getUser_id());
+        List<ProductDTO> productDTOList = productService.userProductList(sellerDTO.getSeller_id());
+        model.addAttribute("productDTOList",productDTOList);
+        return "/UserPages/UserDetail/UserProductList";
+    }
 }
